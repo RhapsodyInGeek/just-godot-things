@@ -7,7 +7,8 @@ twitter.com/BlueKeyGames
 #*************************************************************************************************
 GODOT SETUP:------------------------------------------------------------------------------------------
 Extract to your game's project folder. Then, make sure the .tres files are added to the 
-entity definitions of your game's FGD resource. Don't forget to update the FGD!
+entity definitions of your game's FGD resource. NOTE: You may have to update .tres files to correctly
+point to the trigger_room and trigger_portal .gd scripts. Don't forget to update the FGD!
 
 Before hopping into Trenchbroom, you'll want to make sure you have a decent grasp of how 
 Rooms + Portals work in Godot.
