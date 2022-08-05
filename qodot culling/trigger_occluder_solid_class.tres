@@ -1,0 +1,33 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" type="Script" id=1]
+[ext_resource path="res://entities/triggers/trigger_occluder.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 1 )
+class_options = "----------------------------------------------------------------"
+classname = "trigger_occluder"
+description = "Brush based occluder. An occluder brush must use the Skip texture on all faces EXCEPT for the face intended to be the occluder. Qodot will construct the Occluder polygon when building the map based upon this face."
+qodot_internal = false
+base_classes = [  ]
+class_properties = {
+"two_way": 1
+}
+class_property_descriptions = {
+"two_way": "Specifies whether the occluder should operate from both sides. If false, the occluder will operate one way only."
+}
+meta_properties = {
+"color": Color( 0.8, 0.8, 0.8, 1 ),
+"size": AABB( -8, -8, -8, 8, 8, 8 )
+}
+node_options = "----------------------------------------------------------------"
+node_class = "Occluder"
+transient_node = false
+spawn = "----------------------------------------------------------------"
+spawn_type = 2
+visual_build = "----------------------------------------------------------------"
+build_visuals = true
+collision_build = "----------------------------------------------------------------"
+collision_shape_type = 0
+scripting = "----------------------------------------------------------------"
+script_class = ExtResource( 2 )
