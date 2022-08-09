@@ -1,5 +1,5 @@
 # YOU'RE AN ENTITY! YOU'RE AN ENTITY! YOU'RE AN ENTITY!
-Before we jump into defining our game's entities, we should probably define what an entity _is_. The best way I found is to think of entities in _Quake_ design terms. That is to say, _everything_ is an entity: the player, the enemies, the ambient sounds, the doors, the lifts, the stage geometry itself… all of these should be thought of as _entities_.
+Before we jump into defining our game's entities, we should probably define what an entity actually _is_. The best way I found is to think of entities in _Quake_ design terms. That is to say, _everything_ is an entity: the player, the enemies, the ambient sounds, the doors, the lifts, the stage geometry itself… all of these should be thought of as _entities_.
 
 Trenchbroom and Qodot support 2 different kinds of entities: _brush entities_ (a.k.a. solid) and _point entities_. Both these kingdoms of entity types have their own subtypes built into Trenchbroom that we can take advantage of.
 
