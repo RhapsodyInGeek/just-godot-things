@@ -6,7 +6,7 @@ Nah, let's not do that. Truth is, we can have a whole lot more control if we tre
 ## DEFINING THE GOAL
 When defining an entity, it's best to think of it as, _"what problem am I solving?"_ Oftentimes, the problem is _"I want to be able to do / have this"_. When you get far enough, you may start finding _"I already solved this problem with a previous entity."_ Why do you need a `func_plat` when you can just modify your `func_door` that can already translate, rotate, and scale? Maybe the real answer is you just rename your `func_door` into a `func_move`?
 
-So what problem are we solving? We want full control over map geometry, and to be able to cull sections of our map with relative ease. Qodot's default _worldspawn_ feature doesn't give us this, so we'll define our own `func_geo` solid entity to solve for this. Doing so will give us greater control over UV unwrapping, shadowcasting, and allow us to expand on features later if our game asks us for more.
+So what problem are we solving? We want full control over map geometry, and to be able to [cull sections of our map](https://docs.godotengine.org/en/stable/tutorials/3d/portals/rooms_and_portals_example.html) with relative ease. Qodot's default _worldspawn_ feature doesn't give us this, so we'll define our own `func_geo` solid entity to solve for this. Doing so will give us greater control over UV unwrapping, shadowcasting, and allow us to expand on features later if our game asks us for more.
 
 ## FUNC_GEO.GD
 The first thing we'll do is create a script class to handle our new `func_geo` entity. Since the entity in question will be created automatically by Godot, we won't bother creating a packed scene and just settle for making a script.
