@@ -48,7 +48,7 @@ That takes care of the FGD for now. Don't click _Export File_ just yet though. N
 - _Face Tags_: By default this should have `clip_tag.tres` and `skip_tag.tres`. We'll actually leave this one intact, because we don't need to reinvent the wheel in this instance. Any brush faces using a `skip` texture will have that face removed from the mesh on import without affecting the collision shapes. Cool.
 - _Fgd Filenames_: This is where we tell Trenchbroom what FGDs we're using. Replace the Qodot default with the FGD name you set earlier, with the _.fgd_ extension, ex: `TCFDX.fgd`
 
-Finally we have our "game_trenchbroom_config_folder.tres". This is pretty straightforward:
+Finally we have our `game_trenchbroom_config_folder.tres`. This is pretty straightforward:
 - _Trenchbroom Games Folder_: Where Trenchbroom keeps all of its game definitions. This is NOT your game's specific folder. Should read `Trenchbroom Path/games/`.
 - _Icon_: The icon Trenchbroom uses for your game.
 - _Game Config File_: Drag and drop your `game_trenchbroom_config_file.tres` onto this.
