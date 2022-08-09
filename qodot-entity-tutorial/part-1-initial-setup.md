@@ -65,4 +65,4 @@ All of your Trenchbroom _.map_ files should be saved in the `maps` folder. Your 
 All your textures should be saved to `Godot Project Path/maps/textures/`. You can organize them into subfolders for better organization, just so long as those folders are all located within the `/maps/textures` folder we made oh so long ago. Review the [Qodot Materials docs](https://qodotplugin.github.io/docs/materials.html) for more information.
 
 ## AND THAT'S IT!
-With the preliminary setup complete we can now start defining our entities!
+With the preliminary setup complete we can now start [defining our entities](part-2-what-is-an-entity.md)!
