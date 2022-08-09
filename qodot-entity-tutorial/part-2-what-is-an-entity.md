@@ -43,4 +43,4 @@ If you're extending from _QodotEntity_, then this will be built in and all you w
 
 Don't forget! Your entity script MUST be a `tool` script, or else it will not be able to run the functions that will set up your entities!
 
-With all those concepts out of the way, I guess it's time to dig into a real example and actually learn something.
+With all those concepts out of the way, I guess it's time to dig into a real example and [actually make something](part-3-first-solid-entity.md).
