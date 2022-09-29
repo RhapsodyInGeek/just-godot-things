@@ -39,7 +39,7 @@ func update_properties() -> void:
 	Pass
 ```
 
-If you're extending from _QodotEntity_, then this will be built in and all you will need to do is define the `update_properties()` function. However, if you're choosing to extend from another Node type, you'll need to define these to all of your entity scripts.
+If you're extending from _QodotEntity_, then this will be built in and all you will need to do is define the `update_properties()` function. However, if you're choosing to extend from another Node type, you'll need to define these to all of your entity scripts. (NOTE: You technically can just merge the `set_properties` and `update_properties` into one function. In some cases this may help while you may want to separate them for the sake of inherited classes. This tutorial will keep them separated for consistency's sake.)
 
 Don't forget! Your entity script MUST be a `tool` script, or else it will not be able to run the functions that will set up your entities!
 
