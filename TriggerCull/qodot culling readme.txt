@@ -1,4 +1,4 @@
-QODOT ROOM + PORTAL BRUSH ENTITIES v1.0
+QODOT ROOM + PORTAL + OCCLUDER BRUSH ENTITIES v1.0
 2022, Tim Maccabe (RhapsodyInGeek), Blue Key Games
 twitter.com/BlueKeyGames
 
@@ -49,6 +49,11 @@ other visible texture (that "portal" texture I recommended earlier is a good one
 is going to be your Portal. Align your Portal face so that it is flush between the two Rooms you wish
 to connect. Convert the brush into a TRIGGER_PORTAL, then assign the "target" to the Room "targetname"
 you wish to link it to.
+
+To set up an Occluder, create it the same way you would a Portal but convert it into a TRIGGER_OCCLUDER
+and do not assign a target. They Came From Dimension X has extra functionality that renames FUNC_MOVE
+brush entities to allow for reparenting during the Qodot map build process using the "movename" / "moveparent"
+key value pairs.
 
 BACK TO GODOT:------------------------------------------------------------------------------------------
 Make sure you have a RoomManager node in your SceneTree. Choose the QodotMap node as your RoomList.
