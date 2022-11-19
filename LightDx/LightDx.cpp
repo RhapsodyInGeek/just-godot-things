@@ -227,8 +227,8 @@ void LightDx::_ready()
 	{
 		if (get_bake_mode() != BAKE_ALL)
 			add_to_group("SAV");
-		if (properties.has("targetname"))
-			cast_to<GameManager>(get_node("/root/GameManager"))->set_node_targetname(this, properties["targetname"]);
+		//if (properties.has("targetname"))
+		//	cast_to<GameManager>(get_node("/root/GameManager"))->set_node_targetname(this, properties["targetname"]);
 		style_vec.clear();
 		for (int i = 0; i < style.length(); i++)
 			style_vec.push_back(float(String("abcdefghijklmnopqrstuvwxyz").find(style[i])) * 0.0833333f);
