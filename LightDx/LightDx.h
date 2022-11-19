@@ -8,7 +8,7 @@ Register as a tool class in NativeLib.cpp
 #include <Math.hpp>
 #include "Engine.hpp"
 #include "Light.hpp"
-//#include "Game.h"
+//#include "GameManager.h"
 
 class LightDx : public Light
 {
