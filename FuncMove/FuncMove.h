@@ -16,6 +16,7 @@ even decorations.
 #include <KinematicCollision.hpp>
 #include "KinematicBody.hpp"
 #include "Timer.hpp"
+#include "AudioStreamPlayer3D.hpp"
 #include "GameManager.h"
 #include "Actor.h"
 
