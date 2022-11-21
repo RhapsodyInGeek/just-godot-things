@@ -216,6 +216,21 @@ void FuncMove::update_children()
 	};
 }
 
+Ref<AudioStream> FuncMove::update_sound(String path)
+{
+	String snd_path = "sounds/" + path;
+	Ref<AudioStream> s;
+	if (snd_path.rfind(".wav") > -1 || snd_path.rfind(".ogg") > -1)
+	{
+		Ref<File> file = Ref<File>(File::_new());
+		if (file->file_exists("user://" + snd_path)) // For modding
+			s = ResourceLoader::get_singleton()->load("user://" + snd_path);
+		else if (file->file_exists("res://" + snd_path) || file->file_exists("res://" + snd_path + ".import"))
+			s = ResourceLoader::get_singleton()->load("res://" + snd_path);
+	};
+	return s;
+}
+
 // MOVE METHODS
 void FuncMove::trigger(Node* caller)
 {
@@ -487,9 +502,9 @@ void FuncMove::_ready()
 		block_area = cast_to<Area>(get_node("block_area"));
 		for (int i = 0; i < 2; i++)
 			sfx[i] = cast_to<AudioStreamPlayer3D>(get_node(NodePath("sfx" + String::num(i))));
-		s_move = GameManager::update_sound(move_sound);
-		s_locked = GameManager::update_sound(locked_sound);
-		s_unlock = GameManager::update_sound(unlock_sound);
+		s_move = update_sound(move_sound);
+		s_locked = update_sound(locked_sound);
+		s_unlock = update_sound(unlock_sound);
 		// Movement setup
 		move_pos[0] = get_translation();
 		move_pos[1] += move_pos[0];
