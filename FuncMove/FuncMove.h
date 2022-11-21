@@ -60,6 +60,7 @@ public:
 	void set_unlock_sound(String s); String get_unlock_sound();
 	void reparent();
 	void update_children();
+	static Ref<AudioStream> update_sound(String path);
 	void remove();
 	// Move Methods
 	void trigger(Node* caller); void toggle();
