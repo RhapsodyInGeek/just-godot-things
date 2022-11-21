@@ -1,0 +1,55 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" type="Script" id=1]
+[ext_resource path="res://maps/fgd/base_classes/func_base_class.tres" type="Resource" id=2]
+[ext_resource path="res://maps/fgd/base_classes/lock_base_class.tres" type="Resource" id=3]
+[ext_resource path="res://entities/funcs/func_move.gdns" type="Script" id=4]
+
+[resource]
+script = ExtResource( 1 )
+class_options = "----------------------------------------------------------------"
+classname = "func_move"
+description = "Moving brush. Useful for doors and platforms. Available trigger funcs: lock, unlock, play_motion, reverse_motion"
+qodot_internal = false
+base_classes = [ ExtResource( 3 ), ExtResource( 2 ) ]
+class_properties = {
+"damage": 2,
+"loop": {
+"Back and forth": 1,
+"Don't loop": 0,
+"Instant restart": 2
+},
+"movename": "",
+"rotation": Vector3( 0, 0, 0 ),
+"scale": Vector3( 1, 1, 1 ),
+"sound": "",
+"spawnflags": [ [ "Player Only", 1, 0 ], [ "Starts Open", 2, 0 ] ],
+"speed": 1.0,
+"targetname": "",
+"translation": Vector3( 0, 0, 0 ),
+"wait": -1.0
+}
+class_property_descriptions = {
+"damage": "Damage dealt to Actors when blocked.",
+"locked": "0: unlocked, 1: trigger locked with no message, 2: Silver Key, 3: Gold Key, 4: Emerald Key, 5+: This door is opened elsewhere...",
+"loop": "Movement repetition.",
+"movename": "Unique name that matches a func_button's moveparent key value. Reparents the button to this entity, allowing the button to move with the door.",
+"sound": "Audio file path within sounds directory. Plays when object is moving.",
+"speed": "Amount of time it takes to move to specified translation, in seconds.",
+"targetname": "This entity's name, used by other entities to target it. In Godot, this corresponds to the entity's group. Specify multiple groups using comma delimiting.",
+"translation": "New position relative to start position. Set using Trenchbroom measurements.",
+"wait": "Time to wait before automatically returning to original position after moving."
+}
+meta_properties = {
+}
+node_options = "----------------------------------------------------------------"
+node_class = "KinematicBody"
+transient_node = false
+spawn = "----------------------------------------------------------------"
+spawn_type = 2
+visual_build = "----------------------------------------------------------------"
+build_visuals = true
+collision_build = "----------------------------------------------------------------"
+collision_shape_type = 1
+scripting = "----------------------------------------------------------------"
+script_class = ExtResource( 4 )
