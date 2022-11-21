@@ -12,6 +12,8 @@ Used in culling.Created in Trenchbroom using a single convex brush.
 #include <OccluderShapePolygon.hpp>
 #include "Occluder.hpp"
 
+using namespace godot;
+
 class TriggerRoom : public Room
 {
 private:
