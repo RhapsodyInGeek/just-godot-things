@@ -10,6 +10,8 @@ Register as a tool class in NativeLib.cpp
 #include "Light.hpp"
 //#include "GameManager.h"
 
+using namespace godot;
+
 class LightDx : public Light
 {
 private:
