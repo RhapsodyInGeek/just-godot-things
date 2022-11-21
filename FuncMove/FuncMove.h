@@ -5,7 +5,7 @@ even decorations.
 *******************************************************************************/
 #pragma once
 #include "Godot.hpp"
-#include <Math.hpp>"
+#include <Math.hpp>
 #include <vector>
 #include <File.hpp>
 #include <ArrayMesh.hpp>
