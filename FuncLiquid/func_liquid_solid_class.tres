@@ -1,0 +1,45 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" type="Script" id=1]
+[ext_resource path="res://entities/funcs/func_liquid.gdns" type="Script" id=2]
+
+[resource]
+script = ExtResource( 1 )
+class_options = "----------------------------------------------------------------"
+classname = "func_liquid"
+description = "Water, slime, lava, etc..."
+qodot_internal = false
+base_classes = [  ]
+class_properties = {
+"_color": Color( 0.196078, 0.313726, 0.509804, 0.501961 ),
+"liquid_type": {
+"lava": 2,
+"slime": 1,
+"space": 3,
+"water": 0
+},
+"nocull": 0,
+"opacity": 0.5
+}
+class_property_descriptions = {
+"_color": "View tint while submerged in volume.",
+"liquid_type": "Slime and lava damage submerged Actors, with increasing severity.",
+"nocull": "Volume visuals are not bound to room culling.",
+"opacity": "The view tint strength. Acts like a lerp between the tint color and the unmodified view."
+}
+meta_properties = {
+"_color": "View tint color when submerged.",
+"liquid_type": "0=WATER; 1=SLIME, hurts a bit; 2=LAVA, hurts a lot; 3=SPACE, may be useful for Zero G environments?",
+"opacity": "View tint opacity when submerged."
+}
+node_options = "----------------------------------------------------------------"
+node_class = "Area"
+transient_node = false
+spawn = "----------------------------------------------------------------"
+spawn_type = 2
+visual_build = "----------------------------------------------------------------"
+build_visuals = true
+collision_build = "----------------------------------------------------------------"
+collision_shape_type = 1
+scripting = "----------------------------------------------------------------"
+script_class = ExtResource( 2 )
