@@ -1,3 +1,14 @@
+# An alternative to the built-in worldspawn feature of Qodot. Instead of building map geometry,
+# this Worldspawn allows the mapper to customize WorldEnvironment and Lightmap settings from
+# TrenchBroom on a map by map basis.
+
+# Unfortunately they removed the ability to bake lightmaps via script in Godot 4, so you'll still 
+# have to select the LightmapGI node and bake manually. For this reason, the Lightmap node is automatically
+# moved outside of and above the QodotMap node for easier accessibility after build.
+
+# The _ready() function is commented out due to requirements for a GameManager autoload. I left it in
+# partly to show how you might use the Worldspawn entity to manage other game settings on a global level.
+
 @tool
 extends WorldEnvironment
 class_name Worldspawn
@@ -78,13 +89,13 @@ func apply_lightmap_properties()->void:
 func set_brightness(brightness: float)->void:
 	get_environment().set_adjustment_brightness(brightness)
 
-func _ready()->void:
-	if !Engine.is_editor_hint():
-		#if properties.has("music"):
-		#	MUSIC.music_play(properties["music"])
-		if properties.has("gravity"):
-			GAME.grav_strength = properties["gravity"] as float
-		else:
-			GAME.grav_strength = GAME.GRAV_STRENGTH
-		#GAME.connect("brightness_updated", Callable(self, "set_brightness"))
-		#set_brightness(GAME.brightness)
+#func _ready()->void:
+#	if !Engine.is_editor_hint():
+#		if properties.has("music"):
+#			MUSIC.music_play(properties["music"])
+#		if properties.has("gravity"):
+#			GAME.grav_strength = properties["gravity"] as float
+#		else:
+#			GAME.grav_strength = GAME.GRAV_STRENGTH
+#		GAME.connect("brightness_updated", Callable(self, "set_brightness"))
+#		set_brightness(GAME.brightness)
