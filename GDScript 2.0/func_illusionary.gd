@@ -1,3 +1,8 @@
+# Non-collidable visual instance. Useful for little things like torches, small props, 
+# things you don't want mucking up entity collision. Also useful for staircases when 
+# paired with a clip brush ramp for collision, in case you don't want to deal with 
+# stair step code, or your game doesn't allow for it.
+
 @tool
 extends Node3D
 class_name FuncIllusionary
