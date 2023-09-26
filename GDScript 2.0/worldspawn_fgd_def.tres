@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=3 format=3 uid="uid://2t78htmq0np0"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_8ni3v"]
+[ext_resource type="Script" path="res://entities/worldspawn.gd" id="2_mxcnh"]
+
+[resource]
+script = ExtResource("1_8ni3v")
+spawn_type = 2
+build_visuals = false
+collision_shape_type = 0
+script_class = ExtResource("2_mxcnh")
+classname = "worldspawn"
+description = "World entity. Controls global map settings."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"ambient_light": 0.0,
+"color_ambient": Color(1, 1, 1, 1),
+"color_bg": Color(0, 0, 0, 1),
+"gravity": 25.0,
+"lit_bounces": 3,
+"lit_denoiser": 1,
+"lit_directional": false,
+"lit_probes_subdiv": {
+"16": 3,
+"32": 4,
+"4": 1,
+"8": 2,
+"Disabled": 0
+},
+"lit_quality": {
+"High": 2,
+"Low": 0,
+"Medium": 1,
+"Ultra": 3
+},
+"music": ""
+}
+class_property_descriptions = {
+"ambient_light": "Map wide ambient light energy.",
+"color_ambient": "Map wide ambient light color.",
+"color_bg": "Void fill color. Unrelated to func_void, which autofrags any actors that touch it.",
+"gravity": "Gravitational force. Lower values make you jump higher, fall slower.",
+"lit_bounces": "Number of light bounces that are taken into account during baking. Higher values result in brighter, more realistic lighting.",
+"lit_denoiser": "If 1, uses a CPU-based denoising algorithm on the generated lightmap. This eliminates most noise within the generated lightmap. The built-in denoiser may crash in large scenes. If you encounter a crash, try setting to 0.",
+"lit_directional": "Bakes lightmaps to contain directional information as spherical harmonics. This results in more realistic lighting appearance, especially with normal mapped materials and for lights that have their direct light baked. The directional information is also used to provide rough reflections for static and dynamic objects.",
+"lit_probes_subdiv": ["The level of subdivision to use when automatically generating LightmapProbes for dynamic object lighting. Higher values result in more accurate indirect lighting on dynamic objects.", 2],
+"lit_quality": ["The quality preset to use when baking lightmaps. This affects bake times, but output file sizes remain mostly identical across quality levels.", 1],
+"music": "Song ID to automatically play with default settings."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "WorldEnvironment"
+transient_node = false
