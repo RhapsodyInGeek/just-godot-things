@@ -1,3 +1,7 @@
+# Geo mesh. Used to split up the map geometry for better culling.
+# Best when combined with Skip textures to cull the outside faces of
+# geometry to reduce overdraw and provide better editor visibility.
+
 @tool
 extends StaticBody3D
 class_name FuncGeo
