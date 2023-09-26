@@ -1,6 +1,6 @@
-# Geo mesh. Used to split up the map geometry for better culling.
-# Best when combined with Skip textures to cull the outside faces of
-# geometry to reduce overdraw and provide better editor visibility.
+# Geometry mesh. Used to split up the map geometry for better culling. Best when combined with Skip textures
+# to cull the outside faces of geometry to reduce overdraw and provide better editor visibility.
+# The FGD resource defaults to Convex Collision, but Concave works quite well in conjunction with smart use of Skip.
 
 @tool
 extends StaticBody3D
