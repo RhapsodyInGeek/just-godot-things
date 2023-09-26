@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=3 format=3 uid="uid://c1yy8b6pgalso"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_2fmnp"]
+[ext_resource type="Script" path="res://entities/func/func_illusionary.gd" id="2_cque8"]
+
+[resource]
+script = ExtResource("1_2fmnp")
+spawn_type = 2
+build_visuals = true
+collision_shape_type = 0
+script_class = ExtResource("2_cque8")
+classname = "func_illusionary"
+description = "Non-collidable visual instance. Used for staircases, paired with a clip brush for collision; need to do it this way because of the gravity mechanic. Also useful for little things like torches, small props, things you don't want mucking up entity collision."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"flags": [["Don't cull", 1, 0]],
+"shadowcast": {
+"Double-sided": 2,
+"Off": 0,
+"On": 1,
+"Shadows only": 3
+}
+}
+class_property_descriptions = {
+"shadowcast": ["How this entity will cast shadows. Double-sided ignores back-culling. Shadows only will hide the geometry while still shadowcasting.", 1]
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Node3D"
+transient_node = false
