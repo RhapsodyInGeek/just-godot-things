@@ -1,4 +1,4 @@
-# This GDScript function helps reorient Point Entities imported from Trenchbroom via Qodot that utilize the "mangle" key value pair.
+# This GDScript 2 function helps reorient Point Entities imported from Trenchbroom via Qodot that utilize the "mangle" key value pair.
 # This assumes your entities are intended to be -Z forward as per Godot's position system.
 # Light and Info_Intermission entities have special orientations in Trenchbroom. If you utilize those key prefixes
 # in your entity classnames, you'll want to specify the other mangle type.
