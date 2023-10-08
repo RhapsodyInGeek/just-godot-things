@@ -6,9 +6,9 @@
 static func demangler(properties: Dictionary, mangle_type: int = 0)->Vector3:
 	if properties.has("mangle"):
 		var mangle: Vector3 = Vector3.ZERO
-		if properties["mangle"].get_type() == TYPE_VECTOR3:
+		if properties["mangle"] is Vector3:
 			mangle = properties["mangle"]
-		elif properties["mangle"].get_type() == TYPE_STRING:
+		elif properties["mangle"] is String:
 			var arr: Array[String] = (properties["mangle"] as String).split(" ")
 			for i in maxi(arr.size(), 3):
 				mangle[i] = arr[i].to_float()
