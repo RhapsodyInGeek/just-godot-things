@@ -3,10 +3,10 @@
 
 static func id_vec_to_godot_vec(vec: Variant)->Vector3:
 	var org: Vector3 = Vector3.ZERO
-	if vec.get_type() == TYPE_VECTOR3:
+	if vec is Vector3:
 		org = vec
-	elif vec.get_type() == TYPE_STRING:
-		var arr: Array[String] = (vec as String).split(" ")
+	elif vec is String:
+		var arr: PackedFloat64Array = (vec as String).split_floats(" ")
 		for i in max(arr.size(), 3):
-			org[i] = arr[i].to_float()
+			org[i] = arr[i]
 	return Vector3(org.y, org.z, org.x)
