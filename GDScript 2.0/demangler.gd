@@ -3,20 +3,22 @@
 # Light and Info_Intermission entities have special orientations in Trenchbroom. If you utilize those key prefixes
 # in your entity classnames, you'll want to specify the other mangle type.
 
-static func demangler(properties: Dictionary, mangle_type: int = 0)->Vector3:
-	if properties.has("mangle"):
+static func demangler(properties: Dictionary) -> Vector3:
+	if properties.has("mangle") or properties.has("angles"):
 		var mangle: Vector3 = Vector3.ZERO
-		if properties["mangle"] is Vector3:
-			mangle = properties["mangle"]
+		var key: String = "mangle" if properties.has("mangle") else "angles"
+		if properties[key] is Vector3:
+			mangle = properties[key]
 		elif properties["mangle"] is String:
-			var arr: Array[String] = (properties["mangle"] as String).split(" ")
+			var arr: PackedFloat64Array = (properties[key] as String).split_floats(" ")
 			for i in maxi(arr.size(), 3):
-				mangle[i] = arr[i].to_float()
-		match mangle_type:
-			0: mangle = Vector3(mangle.x, mangle.y + 180.0, -mangle.z) # actors, items, etc...
-			1: mangle = Vector3(mangle.y, mangle.x + 180.0, -mangle.z) # lights
-			2: mangle = Vector3(-mangle.x, mangle.y + 180.0, -mangle.z) # info_intermission
-		return mangle
+				mangle[i] = arr[i]
+		var classname: String = properties["classname"] as String
+		if classname.begins_with("light"):
+			return Vector3(mangle.y, mangle.x + 180.0, -mangle.z)
+		if classname == "info_intermission":
+			return Vector3(-mangle.x, mangle.y + 180.0, -mangle.z)
+		return Vector3(mangle.x, mangle.y + 180.0, -mangle.z) # actors, items, etc...
 	elif properties.has("angle"):
 		return Vector3(0.0, (properties["angle"] as float) + 180.0, 0.0)
 	return Vector3(0.0, 180.0, 0.0)
