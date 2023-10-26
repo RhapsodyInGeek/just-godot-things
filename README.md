@@ -1,5 +1,8 @@
 # Qodot Entities
-A collection of Qodot based entities to add to your FGD for use with Trenchbroom and Godot. These files aren't quite drag'n'drop / plug'n'play ready. Think of these more as examples of what you can do with Godot, Qodot, and Trenchbroom, and how you might do it for your own projects.
+
+A collection of Godot classes, shaders, and Qodot based entities to add to your FGD for use with Trenchbroom and Godot.
+
+These files aren't quite drag'n'drop / plug'n'play ready. Think of these more as examples of what you can do with Godot, Qodot, and Trenchbroom, and how you might do it for your own projects.
 
 All entities on here are provided as is, with no guarantees of functionality within your own projects nor any guarantees of instruction or troubleshooting.
 
