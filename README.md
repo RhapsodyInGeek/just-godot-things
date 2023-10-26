@@ -1,4 +1,4 @@
-# Qodot Entities
+# just godot things
 
 A collection of Godot classes, shaders, and Qodot based entities to add to your FGD for use with Trenchbroom and Godot.
 
