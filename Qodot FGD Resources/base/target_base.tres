@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://dighdb57enx8y"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_q2m3g"]
+
+[resource]
+script = ExtResource("1_q2m3g")
+classname = "Target"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"message": "",
+"target": "",
+"targetfunc": "",
+"targetname": ""
+}
+class_property_descriptions = {
+"message": "Message that will display when this entity triggers another entity (not when this entity is triggered).",
+"target": "The entity we want to trigger. In Godot this corresponds to groups. Specify multiple targets using comma delimiting.",
+"targetfunc": "The target's function we want to trigger. WARNING: you can't specify arguments so only target functions without them!",
+"targetname": "This entity's name, used by other entities to target it. In Godot, this corresponds to the entity's group. Specify multiple groups using comma delimiting."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

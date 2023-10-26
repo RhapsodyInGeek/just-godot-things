@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://u7e5gst327dq"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_7uay1"]
+
+[resource]
+script = ExtResource("1_7uay1")
+classname = "Appearance"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"appearance_flags": [["Not on Easy", 1, 0], ["Not on Normal", 2, 0], ["Not on Hard", 4, 0], ["Not on Nightmare", 8, 0], ["Not on Deathmatch", 16, 0], ["Not on Team Deathmatch", 32, 0]]
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

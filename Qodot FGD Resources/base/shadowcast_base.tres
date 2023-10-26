@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://dqeio0pq2js4m"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_fyytb"]
+
+[resource]
+script = ExtResource("1_fyytb")
+classname = "Shadowcast"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"cast_shadow": {
+"Double-sided": 2,
+"Off": 0,
+"On": 1,
+"Shadows Only": 3
+}
+}
+class_property_descriptions = {
+"cast_shadow": ["How this entity will cast shadows. Double-sided ignores back-culling. Shadows only will hide the geometry while still shadowcasting.", 2]
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

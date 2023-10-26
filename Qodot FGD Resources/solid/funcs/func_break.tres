@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=5 format=3 uid="uid://dhial53g6vjx7"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_60r0f"]
+[ext_resource type="Resource" uid="uid://c3hrpr7pr6kdy" path="res://tb/fgd/base/func_base.tres" id="1_fsthp"]
+[ext_resource type="Resource" uid="uid://dighdb57enx8y" path="res://tb/fgd/base/target_base.tres" id="2_i36il"]
+[ext_resource type="Resource" uid="uid://0506v1wt58ro" path="res://tb/fgd/base/bleed_base.tres" id="3_nwed2"]
+
+[resource]
+script = ExtResource("1_60r0f")
+spawn_type = 2
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 1
+collision_priority = 1.0
+collision_shape_margin = 0.04
+classname = "func_break"
+description = "Destructible geometry. Not quite Red Faction."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_fsthp"), ExtResource("2_i36il"), ExtResource("3_nwed2")])
+class_properties = {
+"health": 1,
+"hitsound": "",
+"sound": ""
+}
+class_property_descriptions = {
+"health": "Amount of damage this entity can take before being destroyed.",
+"hitsound": "Audio path within sounds directory. Plays when hit.",
+"sound": "Audio path within sounds directory. Plays when broken."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Area3D"
+transient_node = false

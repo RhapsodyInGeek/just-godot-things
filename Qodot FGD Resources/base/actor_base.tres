@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=4 format=3 uid="uid://b7adt3jwdfyff"]
+
+[ext_resource type="Resource" uid="uid://m4i0x34cahts" path="res://tb/fgd/base/entity_base.tres" id="1_j3mra"]
+[ext_resource type="Resource" uid="uid://bdckki5bdud61" path="res://tb/fgd/base/pathing_base.tres" id="2_lylvw"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="3_r75xg"]
+
+[resource]
+script = ExtResource("3_r75xg")
+classname = "Actor"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_j3mra"), ExtResource("2_lylvw")])
+class_properties = {
+"spawnstate": {
+"Ambush": 2,
+"Dead": 3,
+"Disabled": 10,
+"Eat": 7,
+"Gibbed": 4,
+"Normal": 0,
+"Pathing": 1,
+"Scripted": 9,
+"Sleep": 6,
+"Telespawn": 5,
+"Worship": 8
+}
+}
+class_property_descriptions = {
+"spawnstate": ["Initial actor state on map start.", 0]
+}
+meta_properties = {
+"color": Color(0.8, 0, 0, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

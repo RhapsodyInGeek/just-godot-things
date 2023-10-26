@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=3 format=3 uid="uid://c412iyuypjtjc"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_ahtjl"]
+[ext_resource type="Resource" uid="uid://dighdb57enx8y" path="res://tb/fgd/base/target_base.tres" id="1_osfeo"]
+
+[resource]
+script = ExtResource("1_ahtjl")
+classname = "Move"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_osfeo")])
+class_properties = {
+"flags": [["Player only", 8, 0], ["Starts open", 16, 0], ["Toggle", 32, 0]],
+"hinge_offset": Vector3(0, 0, 0),
+"hinge_target": "",
+"loop": {
+"Back and forth": 1,
+"Don't loop": 0,
+"Instant restart": 2
+},
+"move_pos": Vector3(0, 0, 0),
+"move_rot": Vector3(0, 0, 0),
+"move_scale": Vector3(1, 1, 1),
+"movename": "",
+"sound": "",
+"speed": 1.0,
+"wait": -1.0
+}
+class_property_descriptions = {
+"hinge_offset": "Rotational offset relative to center of this mover. Useful for swinging doors.",
+"hinge_target": "Targetname of entity to use as a rotational offset relative to center of this mover. Useful for swinging doors. Only used on map build.",
+"loop": ["Movement repetition.", 0],
+"move_pos": "Destination position relative to start position.",
+"move_rot": "Destination rotation.",
+"move_scale": "Destination scale. Initial scale is always 1 1 1.",
+"movename": "Unique name that matches a valid entity's moveparent key value. Reparents the entity to this mover, allowing the entity to move with the mover.",
+"sound": "Audio file path within sounds directory. Plays when object is moving.",
+"speed": "Amount of time it takes to move to specified translation, in seconds.",
+"wait": "Time to wait before automatically returning to original position after moving."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

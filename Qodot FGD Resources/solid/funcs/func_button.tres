@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=5 format=3 uid="uid://baf3c4qp1kvpp"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_hrbl0"]
+[ext_resource type="Resource" uid="uid://bgw7h4605gxy5" path="res://tb/fgd/base/trigger_base.tres" id="1_iuatd"]
+[ext_resource type="Resource" uid="uid://cp7jxsul2ycp2" path="res://tb/fgd/base/lock_base.tres" id="2_sy5uo"]
+[ext_resource type="Resource" uid="uid://dqeio0pq2js4m" path="res://tb/fgd/base/shadowcast_base.tres" id="3_ueygx"]
+
+[resource]
+script = ExtResource("1_hrbl0")
+spawn_type = 2
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 1
+collision_priority = 1.0
+collision_shape_margin = 0.04
+classname = "func_button"
+description = "Interactive button brush."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_iuatd"), ExtResource("2_sy5uo"), ExtResource("3_ueygx")])
+class_properties = {
+"hinge_offset": Vector3(0, 0, 0),
+"hinge_target": "",
+"move_pos": Vector3(0, 0, 0),
+"move_rot": Vector3(0, 0, 0),
+"move_scale": Vector3(1, 1, 1),
+"sound": "",
+"speed": 1.0,
+"wait": -1.0
+}
+class_property_descriptions = {
+"hinge_offset": "Rotational offset relative to center of this button. Useful for levers.",
+"hinge_target": "Targetname of entity to use as a rotational offset relative to center of this button. Useful for levers. Only used on map build.",
+"move_pos": "Destination position relative to start position.",
+"move_rot": "Destination rotation.",
+"move_scale": "Destination scale. Initial scale is always 1 1 1.",
+"sound": "Audio file path within sounds directory. Plays when object is moving.",
+"speed": "Amount of time it takes to move to specified translation, in seconds.",
+"wait": "Time to wait before automatically returning to original position after moving."
+}
+meta_properties = {
+"color": Color(0.8, 0, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Area3D"
+transient_node = false

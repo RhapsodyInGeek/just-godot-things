@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://bdckki5bdud61"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_qexny"]
+
+[resource]
+script = ExtResource("1_qexny")
+classname = "Pathing"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"pathindex": 0,
+"pathloop": {
+"Back and forth": 1,
+"Back to start": 2,
+"Don't loop": 0
+},
+"pathtarget": ""
+}
+class_property_descriptions = {
+"pathindex": "Point along path to start on.",
+"pathloop": ["Determines how to handle reaching the end of the path.", 0],
+"pathtarget": "Name of path to follow."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=4 format=3 uid="uid://bh8pje68qhbno"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_01sqy"]
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_gww6t"]
+[ext_resource type="Resource" uid="uid://bdauqulwdrbda" path="res://tb/fgd/base/movechild_base.tres" id="3_l717f"]
+
+[resource]
+script = ExtResource("1_01sqy")
+classname = "Light"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_gww6t"), ExtResource("3_l717f")])
+class_properties = {
+"color": Color(1, 1, 1, 1),
+"color2": Color(0, 0, 0, 1),
+"custom_style": "",
+"delay": 1.0,
+"distance_fade_begin": -1280.0,
+"distance_fade_length": 320.0,
+"distance_fade_shadow": 1600.0,
+"light": 1.0,
+"light2": 0.0,
+"shadows": 0,
+"start_off": 0,
+"style": {
+"Candle 1": 3,
+"Candle 2": 7,
+"Candle 3": 8,
+"Descend, Ascend": 13,
+"Fast Pulse": 14,
+"Fast Strobe": 4,
+"Flicker 1": 1,
+"Flicker 2": 6,
+"Flourescent Flicker": 10,
+"Gentle Pulse": 5,
+"Light2 and Color2": 63,
+"None": 0,
+"Occasional Flicker": 12,
+"Slow Pulse, No Fade To Black": 11,
+"Slow Strobe": 9,
+"Slow Strong Pulse": 2
+},
+"targetname": "",
+"wait": 300.0
+}
+class_property_descriptions = {
+"color": "Light color",
+"color2": "Secondary light color, used in style lights.",
+"custom_style": "Light style animation override. Can put in any string of characters a-z. The letters act as multipliers against the light value, with m as 1.0, a as 0.0, and z as 2.0, animated at 0.1 seconds per character. Useful if the built-in light styles aren't what you need.",
+"delay": "Attenuation. Named delay for Quake compatibility.",
+"distance_fade_begin": "If positive, the light will smoothly fade away when this distance from the active camera. The light will fade out over distance_fade_length, after which it will be culled. Use this to reduce the number of active lights in a scene and thus improve performance.",
+"distance_fade_length": "Distance over which the light and its shadow fades. The light's energy and shadow's opacity is progressively reduced over this distance and is completely invisible at the end.",
+"distance_fade_shadow": "The distance from the camera the light's shadow cuts off. Set this to a value lower than distance_fade_begin + distance_fade_length to further improve performance.",
+"light": "Brightness. Named light for Quake compatibility.",
+"light2": "Secondary light energy, used in style lights.",
+"shadows": "If 1, the light will cast real-time shadows.",
+"style": ["Style ID for animated lighting. Light remains at light1 and _color1 values if style left at 0.", 0],
+"targetname": "Light becomes targetable to be turned on or off, or any number of other exposed functions. If this field is filled out the light becomes dynamic rather than static and ignored by lightmap baking.",
+"wait": "Range. Named wait for Quake compatibility."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

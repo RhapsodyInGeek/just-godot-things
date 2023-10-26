@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://dpouvld1tjaau"]
+
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_ragey"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_ryf5v"]
+
+[resource]
+script = ExtResource("2_ryf5v")
+classname = "info_teleport_destination"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_ragey")])
+class_properties = {
+"mangle": Vector3(0, 0, 0),
+"targetname": ""
+}
+class_property_descriptions = {
+"mangle": "Teleport exit orientation. Automatically changes gravity direction.",
+"targetname": "Identifier used by teleporter brush."
+}
+meta_properties = {
+"color": Color(0, 0.8, 0, 1),
+"size": AABB(-16, -16, -32, 16, 16, 32)
+}
+node_class = ""
+transient_node = false

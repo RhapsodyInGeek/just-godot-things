@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=6 format=3 uid="uid://c3hrpr7pr6kdy"]
+
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_jp5xv"]
+[ext_resource type="Resource" uid="uid://dqeio0pq2js4m" path="res://tb/fgd/base/shadowcast_base.tres" id="2_628x8"]
+[ext_resource type="Resource" uid="uid://cfutvu1dmmmib" path="res://tb/fgd/base/gravity_base.tres" id="3_m8v82"]
+[ext_resource type="Resource" uid="uid://bdauqulwdrbda" path="res://tb/fgd/base/movechild_base.tres" id="4_yj1y3"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="5_iccg8"]
+
+[resource]
+script = ExtResource("5_iccg8")
+classname = "Func"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_jp5xv"), ExtResource("2_628x8"), ExtResource("3_m8v82"), ExtResource("4_yj1y3")])
+class_properties = {
+"flags": [["Don't cull", 1, 0], ["Don't allow jump", 2, 0], ["Player only (FuncMove)", 4, 0], ["Start open (FuncMove)", 8, 0], ["Toggle (FuncMove)", 16, 0]]
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

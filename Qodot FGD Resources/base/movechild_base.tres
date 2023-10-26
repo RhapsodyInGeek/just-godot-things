@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://bdauqulwdrbda"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_s47n1"]
+
+[resource]
+script = ExtResource("1_s47n1")
+classname = "Movechild"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"moveparent": ""
+}
+class_property_descriptions = {
+"moveparent": "Will reparent to the FuncMove with the matching movename, allowing the entity to follow its transforms. Useful for attaching buttons to doors."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=4 format=3 uid="uid://drrvk6xlrn6wu"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="1_23yt5"]
+[ext_resource type="Resource" uid="uid://m4i0x34cahts" path="res://tb/fgd/base/entity_base.tres" id="1_alxba"]
+[ext_resource type="Script" path="res://entities/info_null.gd" id="3_6oblg"]
+
+[resource]
+script = ExtResource("1_23yt5")
+script_class = ExtResource("3_6oblg")
+classname = "info_null"
+description = "Helper entity, typically used as a target for other entities."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_alxba")])
+class_properties = {
+"name": ""
+}
+class_property_descriptions = {
+"name": "Optional name. Used for entity modification on map build rather than runtime, like matching 'hinge_target' on func_move derived entities. For in-game targeting like teleport destinations, prefer 'targetname'."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Node3D"
+transient_node = false

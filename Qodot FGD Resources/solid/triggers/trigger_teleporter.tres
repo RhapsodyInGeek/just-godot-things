@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=4 format=3 uid="uid://d32oypb6ixkyo"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_cljln"]
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_osuvp"]
+[ext_resource type="Resource" uid="uid://bdauqulwdrbda" path="res://tb/fgd/base/movechild_base.tres" id="2_m3krf"]
+
+[resource]
+script = ExtResource("1_cljln")
+spawn_type = 2
+build_visuals = false
+use_in_baked_light = true
+shadow_casting_setting = 1
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 1
+collision_priority = 1.0
+collision_shape_margin = 0.04
+classname = "trigger_teleporter"
+description = "Teleportation volume. Any targetname with an origin and a mangle should be valid."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_osuvp"), ExtResource("2_m3krf")])
+class_properties = {
+"keep_grav_dir": false,
+"target": "",
+"targetname": ""
+}
+class_property_descriptions = {
+"keep_grav_dir": "When 0, the teleporting entity's gravity direction is oriented to 'mangle'. When 1, the entity only copies the destination's position.",
+"target": "Teleporter destination. Actors passing through copy the transform of the target while maintaining relative velocity.",
+"targetname": "When given a targetname, this teleporter volume will have to be triggered to teleport. Useful for warping monsters in from monster closets."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Area3D"
+transient_node = false

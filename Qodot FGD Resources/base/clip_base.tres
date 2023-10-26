@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://bp7quha34vsy6"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_lveum"]
+
+[resource]
+script = ExtResource("1_lveum")
+classname = "Clip"
+description = "Manage collision layers and masks."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"clip_layers": [["Map", 1, 1], ["Actor", 2, 0], ["Dead", 4, 0], ["Liquid", 8, 0], ["Trigger", 16, 0], ["Vis", 32, 0], ["Ai", 64, 0], ["Use", 128, 0]],
+"clip_mask": [["Map", 1, 0], ["Actor", 2, 0], ["Dead", 4, 0], ["Liquid", 8, 0], ["Trigger", 16, 0], ["Vis", 32, 0], ["Ai", 64, 0], ["Use", 128, 0]]
+}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

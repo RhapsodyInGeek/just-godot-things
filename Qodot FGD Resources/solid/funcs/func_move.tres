@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=6 format=3 uid="uid://cpbmtox3troon"]
+
+[ext_resource type="Resource" uid="uid://c3hrpr7pr6kdy" path="res://tb/fgd/base/func_base.tres" id="1_bd1yo"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_vhumj"]
+[ext_resource type="Resource" uid="uid://c412iyuypjtjc" path="res://tb/fgd/base/move_base.tres" id="2_fvkmi"]
+[ext_resource type="Resource" uid="uid://cp7jxsul2ycp2" path="res://tb/fgd/base/lock_base.tres" id="3_tbmei"]
+[ext_resource type="Script" path="res://entities/func/func_move.gd" id="5_dupvg"]
+
+[resource]
+script = ExtResource("1_vhumj")
+spawn_type = 2
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 0
+collision_priority = 1.0
+collision_shape_margin = 0.04
+script_class = ExtResource("5_dupvg")
+classname = "func_move"
+description = "Moving brush. Useful for doors and platforms. Available trigger funcs: toggle, lock, unlock, mv_forward, mv_reverse, mv_pause, stop, stop_at_end, stop_at_pos, loop_no, loop_pong, loop_restart."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_bd1yo"), ExtResource("2_fvkmi"), ExtResource("3_tbmei")])
+class_properties = {
+"damage": 2
+}
+class_property_descriptions = {
+"damage": "Damage dealt to other entity when blocked."
+}
+meta_properties = {
+"color": Color(0, 0.8, 0.4, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "AnimatableBody3D"
+transient_node = false

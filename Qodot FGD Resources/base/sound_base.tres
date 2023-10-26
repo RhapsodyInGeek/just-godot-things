@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=4 format=3 uid="uid://dl0bxwj7pupgl"]
+
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_d3gcp"]
+[ext_resource type="Resource" uid="uid://dighdb57enx8y" path="res://tb/fgd/base/target_base.tres" id="2_qc4wg"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="3_74sm5"]
+
+[resource]
+script = ExtResource("3_74sm5")
+classname = "Sound"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_d3gcp"), ExtResource("2_qc4wg")])
+class_properties = {
+"autoplay": 0,
+"bus": {
+"Master": 3,
+"Music": 2,
+"Sfx": 1,
+"SfxWorld": 0
+},
+"loop": 0,
+"pitch": 1.0,
+"sound": "",
+"volume": 1.0
+}
+class_property_descriptions = {
+"autoplay": "Autoplays the sound when the map is started. Can be useful for ambient sounds.",
+"bus": ["Audio bus to mix this sound on. Can set to Sfx for things like comms or Music for musical cues.", 0],
+"loop": "Loops the sound over and over until triggered to stop. Can be useful for ambients.",
+"pitch": "Pitch scale, with 1.0 being no adjustments. Scales linearly. Pitch scale also speeds the sound up.",
+"sound": "Path where the sound is, relative to the Sounds folder, eg: actor/elderthing/s_elderthing_chirp.wav",
+"targetname": "This entity's name, used by other entities to target it. In Godot, this corresponds to the entity's group. Specify multiple groups using comma delimiting.",
+"volume": "Linear value between 0.0 and 1.0."
+}
+meta_properties = {
+"color": Color(0.8, 0, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

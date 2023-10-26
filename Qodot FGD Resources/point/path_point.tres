@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=2 format=3 uid="uid://b4377fsbfpsmq"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="1_oosfo"]
+
+[resource]
+script = ExtResource("1_oosfo")
+classname = "path_point"
+description = "Path point for moving entities to follow."
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"delay": 0.0,
+"mangle": Vector3(0, 0, 0),
+"pathindex": 0,
+"pathname": "",
+"speed": 0.0,
+"use_mangle": 0
+}
+class_property_descriptions = {
+"delay": "Time to wait on this path point before moving to the next.",
+"mangle": "Orientation the entity following this path should take.",
+"pathindex": "Order of path points with matching pathname.",
+"pathname": "All path points with a matching pathname get added to the same group. Entities that target this path group will then sort them by pathindex.",
+"speed": "Sets movement speed of entity that reaches this path point. Speed of 0 maintains current velocity.",
+"use_mangle": "If entity following this path supports it, allow orientation copy."
+}
+meta_properties = {
+"color": Color(0, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

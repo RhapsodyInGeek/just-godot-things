@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=5 format=3 uid="uid://bca8kfh72sjob"]
+
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_0iw56"]
+[ext_resource type="Resource" uid="uid://bdauqulwdrbda" path="res://tb/fgd/base/movechild_base.tres" id="2_d1krv"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="2_uqaqi"]
+[ext_resource type="Script" path="res://entities/trigger/trigger_occluder.gd" id="4_530n7"]
+
+[resource]
+script = ExtResource("2_uqaqi")
+spawn_type = 2
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+render_layers = 31
+collision_shape_type = 0
+collision_layer = 0
+collision_mask = 0
+collision_priority = 1.0
+collision_shape_margin = 0.04
+script_class = ExtResource("4_530n7")
+classname = "trigger_occluder"
+description = "Brush based occluder. An occluder brush must use the Skip texture on all faces EXCEPT for the face intended to be the occluder. Qodot will construct the Occluder polygon when building the map based upon this face."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_0iw56"), ExtResource("2_d1krv")])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "OccluderInstance3D"
+transient_node = false

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=4 format=3 uid="uid://dy44ab3l8lw4i"]
+
+[ext_resource type="Resource" uid="uid://dl0bxwj7pupgl" path="res://tb/fgd/base/sound_base.tres" id="1_gwu51"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="1_q0q10"]
+[ext_resource type="Resource" uid="uid://bdauqulwdrbda" path="res://tb/fgd/base/movechild_base.tres" id="2_hot0k"]
+
+[resource]
+script = ExtResource("1_q0q10")
+classname = "sound_3d"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_gwu51"), ExtResource("2_hot0k")])
+class_properties = {
+"far_distance": 960.0,
+"moveparent": "",
+"near_distance": "32",
+"range_mode": {
+"Mix": 0,
+"Pause": 1
+}
+}
+class_property_descriptions = {
+"far_distance": "Maximum distance sound can be heard at. Measured in Trenchbroom units.",
+"moveparent": "Will reparent itself to the func_move with a matching movename. Useful for attaching ambient sounds to moving structures.",
+"near_distance": "Higher values make the sound audible over a large distance. Measured in Trenchbroom units.",
+"range_mode": "How the sound behaves when out of range. MIX keeps the playback going, whereas PAUSE stops it and plays it back from the beginning when in range again. When dealing with looping ambients it is better to use PAUSE to reduce audio processing."
+}
+meta_properties = {
+"color": Color(0.8, 0, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

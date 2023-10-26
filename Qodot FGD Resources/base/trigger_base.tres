@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=5 format=3 uid="uid://bgw7h4605gxy5"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_kl06e"]
+[ext_resource type="Resource" uid="uid://u7e5gst327dq" path="res://tb/fgd/base/appearance_base.tres" id="1_nns5j"]
+[ext_resource type="Resource" uid="uid://dighdb57enx8y" path="res://tb/fgd/base/target_base.tres" id="2_dreme"]
+[ext_resource type="Resource" uid="uid://bdauqulwdrbda" path="res://tb/fgd/base/movechild_base.tres" id="3_sm0py"]
+
+[resource]
+script = ExtResource("1_kl06e")
+classname = "TriggerBase"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_nns5j"), ExtResource("2_dreme"), ExtResource("3_sm0py")])
+class_properties = {
+"delay": 0.0,
+"flags": [["Player only", 1, 1], ["Trigger on start", 2, 0], ["Cannot touch", 4, 0], ["Continuous", 8, 0]],
+"health": 0,
+"wait": -1.0
+}
+class_property_descriptions = {
+"delay": "Time before trigger function fires.",
+"health": "If greater than 0, then this trigger gets activated once sufficient damage is inflicted.",
+"wait": "Time before trigger can be activated again."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=4 format=3 uid="uid://co0hqdx15p00o"]
+
+[ext_resource type="Resource" uid="uid://bgw7h4605gxy5" path="res://tb/fgd/base/trigger_base.tres" id="1_muekq"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_433hk"]
+[ext_resource type="Script" path="res://entities/trigger/trigger_counter.gd" id="3_7fute"]
+
+[resource]
+script = ExtResource("2_433hk")
+script_class = ExtResource("3_7fute")
+classname = "trigger_counter"
+description = "Whenever this trigger is triggered by other entities, it increments a counter. When that counter reaches the specified amount, it triggers its target."
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_muekq")])
+class_properties = {
+"count": 1,
+"count_message": "",
+"repeat": 0
+}
+class_property_descriptions = {
+"count": "Number of times this counter needs to be incremented before triggering its target.",
+"count_message": "Message to display when incrementing. Use # to display activations left before triggering this entity's target.",
+"moveparent": "Non-functional in trigger_counter.",
+"repeat": "Number of times to reset the counter upon completion. Repeats infinitely if set to -1.",
+"wait": "Non-functional in trigger_counter."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Node"
+transient_node = false

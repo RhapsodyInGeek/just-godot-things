@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QodotFGDPointClass" load_steps=3 format=3 uid="uid://ccm2w57ywhidd"]
+
+[ext_resource type="Resource" uid="uid://bh8pje68qhbno" path="res://tb/fgd/base/light_base.tres" id="1_vskns"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_point_class.gd" id="2_w4uou"]
+
+[resource]
+script = ExtResource("2_w4uou")
+classname = "light_spot"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([ExtResource("1_vskns")])
+class_properties = {
+"angle": 45.0,
+"mangle": Vector3(0, 0, 0)
+}
+class_property_descriptions = {
+"angle": "Spotlight cone angle.",
+"mangle": "Spotlight direction."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false

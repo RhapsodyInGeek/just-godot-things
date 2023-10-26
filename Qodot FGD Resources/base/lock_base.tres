@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="QodotFGDBaseClass" load_steps=2 format=3 uid="uid://cp7jxsul2ycp2"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="1_5jlut"]
+
+[resource]
+script = ExtResource("1_5jlut")
+classname = "Lock"
+description = ""
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"lock_flags": [["Trigger only", 1, 0], ["Silver Key required", 2, 0], ["Gold Key required", 4, 0], ["Emerald Key required", 8, 0], ["Obsidian Key required", 16, 0], ["Blue Key required", 128, 0]],
+"locked_message": "",
+"locked_sound": "",
+"unlock_sound": ""
+}
+class_property_descriptions = {
+"locked_message": "Message that shows when attempting to open while locked.",
+"locked_sound": "Audio file path within sounds directory. Plays when attempting to open while locked.",
+"unlock_sound": "Audio file path within sounds directory. Plays when unlocked."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+transient_node = false
