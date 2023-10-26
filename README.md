@@ -10,6 +10,6 @@ All entity code provided under [**MIT-0**](LICENSE.md) where applicable, except 
 
 <p align=center><b>Blue Key Games</b><br><br>
 or<br><br>
-<b>Tim Maccabe</br>Chris Thompsen</b><br></p>
+<b>Tim Maccabe</br>Chris Thompsen</b></p><br>
 
 I hope you find these entities to be useful learning tools or at least as exmaples of what you can do with the TrenchBroom > Qodot > Godot pipeline.
