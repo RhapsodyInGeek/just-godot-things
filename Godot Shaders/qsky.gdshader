@@ -18,7 +18,7 @@ uniform float sky_scale = 3.0; // Texture scale; higher numbers = more repeats
 
 void fragment(){
 	// Initial sphere map
-	vec3 n = VERTEX * mat3(INV_VIEW_MATRIX[0].xyz, INV_VIEW_MATRIX[1].xyz, INV_VIEW_MATRIX[2].xyz);
+	vec3 n = VERTEX * mat3(VIEW_MATRIX[0].xyz, VIEW_MATRIX[1].xyz, VIEW_MATRIX[2].xyz);
 	n.y *= sky_height;
 	n = normalize(n) * sky_scale;
 	// Back albedo
