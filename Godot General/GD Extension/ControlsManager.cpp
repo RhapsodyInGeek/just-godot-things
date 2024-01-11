@@ -5,10 +5,6 @@ CONTROLS MANAGER
 Autoload singleton interface for user input. All input checks are requested
 through this node.
 
-To create a custom action map, you only need to modify the DEFAULT_ACTION_MAP
-in ControlsManager.h and the ControlsManager will automatically generate the 
-appropriate input actions at runtime. 
-Make sure this class is the first in your autoloads.
 ***************************************************************************/
 #include "ControlsMgr.h"
 #include <godot_cpp/classes/global_constants.hpp>
@@ -16,6 +12,7 @@ Make sure this class is the first in your autoloads.
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/viewport.hpp>
 #include <godot_cpp/classes/os.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/input_map.hpp>
 #include <godot_cpp/classes/input_event_key.hpp>
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
@@ -28,7 +25,7 @@ using namespace godot;
 void ControlsManager::_bind_methods() {
     // PROPERTIES
     // mouse sensitivity
-    ClassDB::bind_method(D_METHOD("set_mouse_sensitivity", "new_sensitivity"), &ControlsManager::set_mouse_sensitivity);
+    ClassDB::bind_method(D_METHOD("set_mouse_sensitivity", "new_sensitivity"), &ControlsManager::set_mouse_sensitivity, DEFVAL(Vector2(3.0f, 3.0f)));
     ClassDB::bind_method(D_METHOD("get_mouse_sensitivity"), &ControlsManager::get_mouse_sensitivity);
     ClassDB::add_property("ControlsManager", PropertyInfo(Variant::VECTOR2, "mouse_sensitivity"), "set_mouse_sensitivity", "get_mouse_sensitivity");
     // mouse motion
@@ -39,12 +36,16 @@ void ControlsManager::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_move_motion", "new_move_motion"), &ControlsManager::set_move_motion);
     ClassDB::bind_method(D_METHOD("get_move_motion"), &ControlsManager::get_move_motion);
     ClassDB::add_property("ControlsManager", PropertyInfo(Variant::VECTOR2, "move_motion"), "set_move_motion", "get_move_motion");
-    // mouse y invert
-    ClassDB::bind_method(D_METHOD("set_mouse_invert", "new_invert"), &ControlsManager::set_mouse_invert);
+    // mouse invert
+    ClassDB::bind_method(D_METHOD("set_mouse_invert", "new_invert"), &ControlsManager::set_mouse_invert, DEFVAL(Vector2(1.0f, 1.0f)));
     ClassDB::bind_method(D_METHOD("get_mouse_invert"), &ControlsManager::get_mouse_invert);
     ClassDB::add_property("ControlsManager", PropertyInfo(Variant::VECTOR2, "mouse_invert"), "set_mouse_invert", "get_mouse_invert");
-    // gamepad y invert
-    ClassDB::bind_method(D_METHOD("set_gamepad_invert", "new_invert"), &ControlsManager::set_gamepad_invert);
+    // gamepad sensitivity
+    ClassDB::bind_method(D_METHOD("set_gamepad_sensitivity", "new_sensitivity"), &ControlsManager::set_gamepad_sensitivity, DEFVAL(Vector2(3.0f, 3.0f)));
+    ClassDB::bind_method(D_METHOD("get_gamepad_sensitivity"), &ControlsManager::get_gamepad_sensitivity);
+    ClassDB::add_property("ControlsManager", PropertyInfo(Variant::VECTOR2, "gamepad_sensitivity"), "set_gamepad_sensitivity", "get_gamepad_sensitivity");
+    // gamepad invert
+    ClassDB::bind_method(D_METHOD("set_gamepad_invert", "new_invert"), &ControlsManager::set_gamepad_invert, DEFVAL(Vector2(1.0f, 1.0f)));
     ClassDB::bind_method(D_METHOD("get_gamepad_invert"), &ControlsManager::get_gamepad_invert);
     ClassDB::add_property("ControlsManager", PropertyInfo(Variant::VECTOR2, "gamepad_invert"), "set_gamepad_invert", "get_gamepad_invert");
     // lockout
@@ -64,7 +65,8 @@ void ControlsManager::_bind_methods() {
     ClassDB::bind_method(D_METHOD("release_all"), &ControlsManager::release_all);
 
     // LOCKOUT
-    ClassDB::bind_method(D_METHOD("mouse_lock", "locked"), &ControlsManager::mouse_lock);
+    ClassDB::bind_method(D_METHOD("set_mouse_mode", "mouse_mode"), &ControlsManager::set_mouse_mode);
+    ClassDB::bind_method(D_METHOD("get_mouse_mode"), &ControlsManager::get_mouse_mode);
 
     // SIGNALS
     ADD_SIGNAL(MethodInfo("console_input"));
@@ -80,8 +82,8 @@ void ControlsManager::_bind_methods() {
 PROPERTIES
 *************************************************/
 void ControlsManager::set_mouse_sensitivity(Vector2 new_sensitivity) {
-    mouse_sensitivity.x = Math::clamp(new_sensitivity.x, 0.01f, 1.0f);
-    mouse_sensitivity.y = Math::clamp(new_sensitivity.y, 0.01f, 1.0f);
+    mouse_sensitivity.x = Math::clamp(new_sensitivity.x, 0.1f, 20.0f);
+    mouse_sensitivity.y = Math::clamp(new_sensitivity.y, 0.1f, 20.0f);
 }
 Vector2 ControlsManager::get_mouse_sensitivity() { return mouse_sensitivity; }
 
@@ -96,6 +98,12 @@ void ControlsManager::set_mouse_invert(Vector2 new_invert) {
         mouse_invert = new_invert.sign();
 }
 Vector2 ControlsManager::get_mouse_invert() { return mouse_invert; }
+
+void ControlsManager::set_gamepad_sensitivity(Vector2 new_sensitivity) {
+    gamepad_sensitivity.x = Math::clamp(new_sensitivity.x, 0.1f, 20.0f);
+    gamepad_sensitivity.y = Math::clamp(new_sensitivity.y, 0.1f, 20.0f);
+}
+Vector2 ControlsManager::get_gamepad_sensitivity() { return gamepad_sensitivity; }
 
 void ControlsManager::set_gamepad_invert(Vector2 new_invert) {
     if (new_invert.length() != 0)
@@ -210,14 +218,16 @@ void ControlsManager::set_action_map() {
 
 void ControlsManager::reset_to_defaults() {
     action_map = DEFAULT_ACTION_MAP;
-    mouse_sensitivity = Vector2(0.5f, 0.5f);
-    mouse_invert = Vector2(1.0f, 1.0f);
-    gamepad_invert = Vector2(1.0f, 1.0f);
+    set_mouse_sensitivity();
+    set_mouse_invert();
+    set_gamepad_sensitivity();
+    set_gamepad_invert();
     set_action_map();
 }
 
-void ControlsManager::set_remap_mode(String new_remap_action, bool new_remap_mode) {
+void ControlsManager::set_remap_mode(String new_remap_action, float new_remap_wait, bool new_remap_mode) {
     remap_action = new_remap_action;
+    remap_wait = new_remap_wait;
     remap_mode = new_remap_mode;
 }
 
@@ -387,11 +397,12 @@ void ControlsManager::release_all() {
         INPUT->action_release(action_list[i]);
 }
 
-void ControlsManager::mouse_lock(bool locked) {
-    if (locked)
-        INPUT->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
-    else
-        INPUT->set_mouse_mode(Input::MOUSE_MODE_HIDDEN);
+void ControlsManager::set_mouse_mode(int mouse_mode) {
+    INPUT->set_mouse_mode(Input::MouseMode(mouse_mode));
+}
+
+int ControlsManager::get_mouse_mode() {
+    return (int)INPUT->get_mouse_mode();
 }
 
 /*************************************************
@@ -425,6 +436,9 @@ void ControlsManager::process(float delta) {
     if (Engine::get_singleton()->is_editor_hint())
         return;
 
+    if (INPUT->is_key_pressed(KEY_F4) && INPUT->is_key_pressed(KEY_ALT))
+        get_tree()->quit();
+
     if (input_mode == InputMode::Keyboard)
         set_deferred("mouse_motion", Vector2());
     update_held_time(delta);
@@ -448,7 +462,10 @@ void ControlsManager::input(InputEvent* event) {
 
     // Input remapping eats inputs
     if (remap_mode) {
-        if (remap(event, remap_action))
+        // delay to make sure we don't immediately register a new input
+        if (remap_wait > 0.0f)
+            remap_wait -= get_process_delta_time();
+        else if (remap(event, remap_action))
             remap_mode = false;
         get_viewport()->set_input_as_handled();
         return;
@@ -485,14 +502,14 @@ void ControlsManager::input(InputEvent* event) {
         // Aiming
         case (JoyAxis::JOY_AXIS_RIGHT_X): {
             if (abs(av) > 0.0f)
-                mouse_motion.x = av * 3.0f * mouse_sensitivity.x;
+                mouse_motion.x = av * mouse_sensitivity.x;
             else
                 mouse_motion.x = 0.0f;
             break;
         }
         case (JoyAxis::JOY_AXIS_RIGHT_Y): {
             if (abs(av) > 0.0f)
-                mouse_motion.y = av * 3.0f * mouse_sensitivity.y;
+                mouse_motion.y = av * mouse_sensitivity.y;
             else
                 mouse_motion.y = 0.0f;
             break;

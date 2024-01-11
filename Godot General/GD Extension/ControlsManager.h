@@ -3,14 +3,6 @@
 
 /********************************************************************************
 CONTROLS MANAGER
-
-Autoload singleton interface for user input. All input checks are requested
-through this node.
-
-To create a custom action map, you only need to modify the DEFAULT_ACTION_MAP
-in ControlsManager.h and the ControlsManager will automatically generate the 
-appropriate input actions at runtime. 
-Make sure this class is the first in your autoloads.
 ********************************************************************************/
 #include <string>
 #include <unordered_map>
@@ -71,24 +63,27 @@ namespace godot
 
         Dictionary map = {};
         int8_t input_mode = 0;
+        Vector2 mouse_motion = Vector2();
+        Vector2 mouse_sensitivity = Vector2(3.0f, 3.0f);
         Vector2 mouse_invert = Vector2(1.0f,1.0f);
+        Vector2 gamepad_sensitivity = Vector2(3.0f, 3.0f);
         Vector2 gamepad_invert = Vector2(1.0f,1.0f);
+        Vector2 move_motion = Vector2();
         float lockout = 0.0f;
         bool remap_mode = false;
+        float remap_wait = 0.0f;
         bool console_mode = false;
         String remap_action;
-        Vector2 mouse_motion = Vector2();
-        Vector2 mouse_sensitivity = Vector2(0.5f, 0.5f);
-        Vector2 move_motion = Vector2();
         std::unordered_map<std::string, float> held_time = {};
 
         ControlsManager();
         ~ControlsManager();
         // PROPERTIES
-        void set_mouse_sensitivity(Vector2 new_sensitivity = Vector2(0.5f, 0.5f)); Vector2 get_mouse_sensitivity();
+        void set_mouse_sensitivity(Vector2 new_sensitivity = Vector2(3.0f, 3.0f)); Vector2 get_mouse_sensitivity();
         void set_mouse_motion(Vector2 new_mouse_motion); Vector2 get_mouse_motion();
         void set_move_motion(Vector2 new_move_motion); Vector2 get_move_motion();
         void set_mouse_invert(Vector2 new_invert = Vector2(1.0f,1.0f)); Vector2 get_mouse_invert();
+        void set_gamepad_sensitivity(Vector2 new_sensitivity = Vector2(3.0f, 3.0f)); Vector2 get_gamepad_sensitivity();
         void set_gamepad_invert(Vector2 new_invert = Vector2(1.0f,1.0f)); Vector2 get_gamepad_invert();
         void set_lockout(float new_lockout); float get_lockout(); bool locked();
 
@@ -99,11 +94,11 @@ namespace godot
         // MAPPING
         void set_action_map();
         void reset_to_defaults();
-        void set_remap_mode(String new_remap_action, bool new_remap_mode = true);
+        void set_remap_mode(String new_remap_action, float new_remap_wait = 0.1f, bool new_remap_mode = true);
         bool remap(InputEvent* event, String action);
         void dict_to_map(int mode, Dictionary new_map);
         Dictionary map_to_dict(int mode);
-        String action_to_ui(String action, int mode = -1);
+        String action_to_ui(String action, int mode = ControlsManager::Keyboard);
 
         // INPUT STATES
         bool pressed(String action);
@@ -114,7 +109,8 @@ namespace godot
 
         // LOCKOUT
         void release_all();
-        void mouse_lock(bool locked);
+        void set_mouse_mode(int mouse_mode);
+        int get_mouse_mode();
 
         // BASE PROCESSING
         void ready();
