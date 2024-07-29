@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://rorln1pcp1bq"]
+
+[ext_resource type="Resource" uid="uid://dnjlim0ik6hty" path="res://tb/fgd/base/prop_base.tres" id="1_lvmib"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="3_xvxts"]
+
+[resource]
+script = ExtResource("3_xvxts")
+apply_rotation_on_map_build = true
+classname = "prop_dynamic"
+description = "Dynamic prop entity."
+func_godot_internal = false
+base_classes = Array[Resource]([ExtResource("1_lvmib")])
+class_properties = {
+"anim": "",
+"editor_display_path": "",
+"next_anim": "",
+"prop_path": "",
+"scale": Vector3(1, 1, 1)
+}
+class_property_descriptions = {
+"anim": "Starting animation override.",
+"editor_display_path": "Display path for editor model. Not used in Godot.",
+"next_anim": "Animation to be played when this entity is triggered.",
+"prop_path": "Local Resource or User path to GLTF or GLB file in Godot."
+}
+meta_properties = {
+"color": Color(0.8, 0, 0.8, 1),
+"model": "editor_display_path",
+"size": AABB(-8, -8, 0, 8, 8, 16)
+}
+node_class = "PropDynamic"
+name_property = ""

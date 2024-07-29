@@ -30,37 +30,30 @@ var action_list: Array[String] = []
 
 var map: Dictionary = {}
 var input_mode: InputMode = InputMode.Keyboard
-var mouse_motion: Vector2 = Vector2.ZERO
-var mouse_sensitivity: Vector2 = Vector2(3.0, 3.0):
-	set(value):
-		mouse_sensitivity = value
-		mouse_sensitivity.x = clampf(value.x, 0.01, 20.0)
-		mouse_sensitivity.y = clampf(value.y, 0.01, 20.0)
 var mouse_invert: Vector2 = Vector2.ONE:
 	set(value):
 		if value.length() != 0:
 			mouse_invert = value.sign()
-var gamepad_sensitivity: Vector2 = Vector2(3.0, 3.0):
-	set(value):
-		gamepad_sensitivity = value
-		gamepad_sensitivity.x = clampf(value.x, 0.01, 20.0)
-		gamepad_sensitivity.y = clampf(value.y, 0.01, 20.0)
 var gamepad_invert: Vector2 = Vector2.ONE:
 	set(value):
 		if value.length() != 0:
-			gamepad_invert = value.sign()
-var move_motion: Vector2 = Vector2.ZERO
+			mouse_invert = value.sign()
 var lockout: float = 0.0
-var console_mode: bool = false
 var remap_mode: bool = false
-var remap_wait: float = 0.0
+var console_mode: bool = false
 var remap_action: String
+var mouse_motion: Vector2 = Vector2.ZERO
+var mouse_sensitivity: Vector2 = Vector2(0.5, 0.5):
+	set(value):
+		mouse_sensitivity.x = clampf(value.x, 0.01, 1.0)
+		mouse_sensitivity.y = clampf(value.y, 0.01, 1.0)
+var move_motion: Vector2 = Vector2.ZERO
 var held_time: Dictionary = {}
 
 signal console_input
 signal action_pressed(action: String)
 signal action_released(action: String)
-signal action_remapped(action: String, remap_successful: bool)
+signal action_remapped
 
 #*************************************************************
 # PROPERTIES
@@ -109,7 +102,7 @@ func input_mode_swap(event: InputEvent) -> void:
 # MAPPING
 #*************************************************************
 func set_action_map() -> void:
-	var map_input: Array[int] = [0,0,0,0]
+	var map_input: Array[int] = [0,0]
 	for action in action_map.keys():
 		InputMap.action_erase_events(action)
 		
@@ -117,6 +110,8 @@ func set_action_map() -> void:
 			if j == InputMode.Keyboard:
 				map_input[0] = action_map[action][0] # input event type
 				map_input[1] = action_map[action][1] # input global constant
+				if map_input[1] == KEY_NONE:
+					continue
 				match map_input[0]:
 					InputType.KEY:
 						var event:= InputEventKey.new()
@@ -127,8 +122,10 @@ func set_action_map() -> void:
 						event.button_index = map_input[1] as MouseButton
 						InputMap.action_add_event(action, event)
 			else: # Gamepad
-				map_input[2] = action_map[action][2] # input event type
-				map_input[3] = action_map[action][3] # input global constant
+				map_input[0] = action_map[action][2] # input event type
+				map_input[1] = action_map[action][3] # input global constant
+				if map_input[1] == -1:
+					continue
 				match map_input[0]:
 					InputType.JOYBUTTON:
 						var event:= InputEventJoypadButton.new()
@@ -137,6 +134,8 @@ func set_action_map() -> void:
 					InputType.JOYAXIS:
 						var event:= InputEventJoypadMotion.new()
 						event.axis = map_input[1] as JoyAxis
+						if (action_map[action] as Array).size() > 4:
+							event.axis_value = action_map[action][4] as float
 						InputMap.action_add_event(action, event)
 						InputMap.action_set_deadzone(action, DEADZONE)
 
@@ -147,9 +146,8 @@ func reset_to_defaults() -> void:
 	gamepad_invert = Vector2.ONE
 	set_action_map()
 
-func set_remap_mode(new_remap_action: String, new_remap_wait: float = 0.1, new_remap_mode: bool = true) -> void:
+func set_remap_mode(new_remap_action: String, new_remap_mode: bool) -> void:
 	remap_action = new_remap_action
-	remap_wait = new_remap_wait
 	remap_mode = new_remap_mode
 
 func action_remap(event: InputEvent, action: String) -> bool:
@@ -203,12 +201,10 @@ func action_remap(event: InputEvent, action: String) -> bool:
 		# Remap Controls
 		set_action_map()
 		release_all()
-		emit_signal("action_remapped", remap_action, true)
 		return true
 	
 	# We couldn't remap it?
 	release_all()
-	emit_signal("action_remapped", remap_action, false)
 	return false
 
 func action_to_ui(action: String, mode: int):
@@ -269,6 +265,11 @@ func update_held_time(delta: float) -> void:
 		else:
 			held_time[action] = 0.0
 
+func axis(negative_action: String, positive_action: String) -> float:
+	if lockout > 0.0:
+		return 0.0
+	return Input.get_axis(negative_action, positive_action)
+
 func release_all() -> void:
 	for action in action_list:
 		Input.action_release(action)
@@ -313,10 +314,9 @@ func _input(event):
 	
 	# Input remapping eats inputs
 	if remap_mode:
-		if remap_wait > 0.0:
-			remap_wait -= get_process_delta_time()
-		elif action_remap(event, remap_action):
+		if action_remap(event, remap_action):
 			remap_mode = false
+			emit_signal("action_remapped")
 		get_viewport().set_input_as_handled()
 		return
 	
@@ -325,35 +325,6 @@ func _input(event):
 	# Mouselook
 	if event.get_class() == "InputEventMouseMotion" and input_mode == InputMode.Keyboard:
 		mouse_motion = Vector2((event as InputEventMouseMotion).relative) * mouse_sensitivity
-	
-	# Gamepad movement
-	elif event.get_class() == "InputEventJoypadMotion" and input_mode != InputMode.Keyboard:
-		var axis: int = (event as InputEventJoypadMotion).axis
-		var av: float = (event as InputEventJoypadMotion).axis_value
-		
-		match axis:
-			# Movement
-			JOY_AXIS_LEFT_X:
-				if abs(av) > 0.0:
-					move_motion.x = av
-				else:
-					move_motion.x = 0.0
-			JOY_AXIS_LEFT_Y:
-				if abs(av) > 0.0:
-					move_motion.y = av
-				else:
-					move_motion.y = 0.0
-			# Aiming
-			JOY_AXIS_RIGHT_X:
-				if abs(av) > 0.0:
-					mouse_motion.x = av * mouse_sensitivity.x
-				else:
-					mouse_motion.x = 0.0
-			JOY_AXIS_RIGHT_Y:
-				if abs(av) > 0.0:
-					mouse_motion.y = av * mouse_sensitivity.y
-				else:
-					mouse_motion.y = 0.0
 	
 	# Input states
 	for action in action_list:

@@ -6,7 +6,7 @@ Autoload singleton interface for user input. All input checks are requested
 through this node.
 
 ***************************************************************************/
-#include "ControlsMgr.h"
+#include "controls_manager.h"
 #include <godot_cpp/classes/global_constants.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/engine.hpp>
@@ -62,6 +62,7 @@ void ControlsManager::_bind_methods() {
     ClassDB::bind_method(D_METHOD("released", "action"), &ControlsManager::released);
     ClassDB::bind_method(D_METHOD("held", "action"), &ControlsManager::held);
     ClassDB::bind_method(D_METHOD("get_held_time", "action"), &ControlsManager::get_held_time);
+    ClassDB::bind_method(D_METHOD("axis", "negative_action", "positive_action"), &ControlsManager::axis);
     ClassDB::bind_method(D_METHOD("release_all"), &ControlsManager::release_all);
 
     // LOCKOUT
@@ -72,7 +73,7 @@ void ControlsManager::_bind_methods() {
     ADD_SIGNAL(MethodInfo("console_input"));
     ADD_SIGNAL(MethodInfo("action_pressed", PropertyInfo(Variant::STRING, "action")));
     ADD_SIGNAL(MethodInfo("action_released", PropertyInfo(Variant::STRING, "action")));
-    ADD_SIGNAL(MethodInfo("action_remapped", PropertyInfo(Variant::BOOL, "remap_successful")));
+    ADD_SIGNAL(MethodInfo("action_remapped", PropertyInfo(Variant::STRING, "action"), PropertyInfo(Variant::BOOL, "remap_successful")));
 
     // BASE PROCESSING
     ClassDB::bind_method(D_METHOD("input", "event"), &ControlsManager::input);
@@ -165,7 +166,7 @@ MAPPING
 void ControlsManager::set_action_map() {
     InputMap* IM = InputMap::get_singleton();
     String action;
-    int map_input[4];
+    int map_input[2];
 
     for (std::unordered_map<std::string, std::vector<int>>::iterator itr = action_map.begin(); itr != action_map.end(); itr++) {
         action = String(itr->first.c_str());
@@ -173,40 +174,49 @@ void ControlsManager::set_action_map() {
 
         for (int j = 0; j < 2; j++) {
             if (j == InputMode::Keyboard) {
-                map_input[0] = itr->second[0]; // input event type
-                map_input[1] = itr->second[1]; // input global constant
-                switch (map_input[0]) {
+                map_input[ACTION_TYPE] = itr->second[0]; // input event type
+                map_input[ACTION_INPUT] = itr->second[1]; // input global constant
+
+                if (map_input[ACTION_INPUT] == KEY_NONE)
+                    continue;
+
+                switch (map_input[ACTION_TYPE]) {
                 case InputType::KEY: {
                     Ref<InputEventKey> event;
                     event.instantiate();
-                    event->set_keycode(Key(map_input[1]));
+                    event->set_keycode(Key(map_input[ACTION_INPUT]));
                     IM->action_add_event(action, event);
                     break;
                 }
                 case InputType::MOUSEBUTTON: {
                     Ref<InputEventMouseButton> event;
                     event.instantiate();
-                    event->set_button_index(MouseButton(map_input[1]));
+                    event->set_button_index(MouseButton(map_input[ACTION_INPUT]));
                     IM->action_add_event(action, event);
                     break;
                 }
                 }
             }
             else { // Gamepad
-                map_input[2] = itr->second[2]; // input event type
-                map_input[3] = itr->second[3]; // input global constant
-                switch (map_input[0]) {
+                map_input[ACTION_TYPE] = itr->second[2]; // input event type
+                map_input[ACTION_INPUT] = itr->second[3]; // input global constant
+
+                if (map_input[ACTION_INPUT] == -1)
+                    continue;
+
+                switch (map_input[ACTION_TYPE]) {
                 case InputType::JOYBUTTON: {
                     Ref<InputEventJoypadButton> event;
                     event.instantiate();
-                    event->set_button_index(JoyButton(map_input[1]));
+                    event->set_button_index(JoyButton(map_input[ACTION_INPUT]));
                     IM->action_add_event(action, event);
                     break;
                 }
                 case InputType::JOYAXIS: {
                     Ref<InputEventJoypadMotion> event;
                     event.instantiate();
-                    event->set_axis(JoyAxis(map_input[1]));
+                    event->set_axis(JoyAxis(map_input[ACTION_INPUT]));
+                    event->set_axis_value((float)itr->second[ACTION_AXIS_VALUE]);
                     IM->action_add_event(action, event);
                     IM->action_set_deadzone(action, DEADZONE);
                 }
@@ -216,13 +226,35 @@ void ControlsManager::set_action_map() {
     }
 }
 
-void ControlsManager::reset_to_defaults() {
+void ControlsManager::reset_action_map_to_default() {
     action_map = DEFAULT_ACTION_MAP;
+    set_action_map();
+}
+
+void ControlsManager::reset_keyboard_map_to_default() {
+    std::unordered_map<std::string, std::vector<int>> defmap = DEFAULT_ACTION_MAP;
+    for (std::unordered_map<std::string, std::vector<int>>::iterator itr = defmap.begin(); itr != defmap.end(); itr++) {
+        action_map[itr->first][0] = itr->second[0];
+        action_map[itr->first][1] = itr->second[1];
+    }
+    set_action_map();
+}
+
+void ControlsManager::reset_gamepad_map_to_default() {
+    std::unordered_map<std::string, std::vector<int>> defmap = DEFAULT_ACTION_MAP;
+    for (std::unordered_map<std::string, std::vector<int>>::iterator itr = defmap.begin(); itr != defmap.end(); itr++) {
+        action_map[itr->first][2] = itr->second[2];
+        action_map[itr->first][3] = itr->second[3];
+    }
+    set_action_map();
+}
+
+void ControlsManager::reset_to_defaults() {
+    reset_action_map_to_default();
     set_mouse_sensitivity();
     set_mouse_invert();
     set_gamepad_sensitivity();
     set_gamepad_invert();
-    set_action_map();
 }
 
 void ControlsManager::set_remap_mode(String new_remap_action, float new_remap_wait, bool new_remap_mode) {
@@ -238,37 +270,34 @@ bool ControlsManager::remap(InputEvent* event, String action) {
     if (_class == "InputEventMouseMotion")
         return false;
 
-    int new_input[2] = { -1, -1 }, input_check[2] = { -1, -1 };
+    int new_input[3] = { -1, -1, 0 }, input_check[3] = { -1, -1, 0 };
 
     if (_class == "InputEventKey") {
-        input_check[1] = event->call("get_keycode");
-        if (input_check[1] != KEY_QUOTELEFT)
-            if (input_check[1] < KEY_F1 || input_check[1] > KEY_F12) {
-                new_input[0] = InputType::KEY;
-                new_input[1] = input_check[1];
+        input_check[ACTION_INPUT] = event->call("get_keycode");
+        if (input_check[ACTION_INPUT] != KEY_QUOTELEFT)
+            if (input_check[ACTION_INPUT] < KEY_F1 || input_check[ACTION_INPUT] > KEY_F12) {
+                new_input[ACTION_TYPE] = InputType::KEY;
+                new_input[ACTION_INPUT] = input_check[ACTION_INPUT];
             }
     }
     else if (_class == "InputEventMouseButton") {
-        new_input[0] = InputType::MOUSEBUTTON;
-        new_input[1] = event->call("get_button_index");
+        new_input[ACTION_TYPE] = InputType::MOUSEBUTTON;
+        new_input[ACTION_INPUT] = event->call("get_button_index");
     }
     else if (_class == "InputEventJoypadMotion") {
-        input_check[1] = event->call("get_axis");
-        // Joysticks are reserved for movement and aim, but the triggers are fair game
-        if (input_check[1] > JOY_AXIS_RIGHT_Y) {
-            new_input[0] = InputType::JOYAXIS;
-            new_input[1] = input_check[1];
-        }
+        new_input[ACTION_TYPE] = InputType::JOYAXIS;
+        new_input[ACTION_INPUT] = event->call("get_axis");
+        new_input[REMAP_AXIS_VALUE] = (int)Math::sign((float)event->call("get_axis_value"));
     }
     else if (_class == "InputEventJoypadButton") {
-        input_check[1] = event->call("get_button_index");
-        if (input_check[1] != JOY_BUTTON_GUIDE && input_check[1] != JOY_BUTTON_MISC1) {
-            new_input[0] = InputType::JOYBUTTON;
-            new_input[1] = input_check[1];
+        input_check[ACTION_INPUT] = event->call("get_button_index");
+        if (input_check[ACTION_INPUT] != JOY_BUTTON_GUIDE && input_check[1] != JOY_BUTTON_MISC1) {
+            new_input[ACTION_TYPE] = InputType::JOYBUTTON;
+            new_input[ACTION_INPUT] = input_check[ACTION_INPUT];
         }
     }
 
-    if (new_input[1] >= 0) {
+    if (new_input[ACTION_INPUT] >= 0) {
         // Grab the right map
         int in_ofs = 0;
         if (input_mode != InputMode::Keyboard)
@@ -277,33 +306,43 @@ bool ControlsManager::remap(InputEvent* event, String action) {
         std::string _action = action.utf8().get_data();
 
         // We need to make sure we don't have 2 actions assigned to the same input
-        input_check[0] = action_map[_action][in_ofs];
-        input_check[1] = action_map[_action][in_ofs + 1];
+        input_check[ACTION_TYPE] = action_map[_action][in_ofs];
+        input_check[ACTION_INPUT] = action_map[_action][in_ofs + 1];
+        input_check[REMAP_AXIS_VALUE] = action_map[_action][ACTION_AXIS_VALUE];
         for (std::unordered_map<std::string, std::vector<int>>::iterator itr = action_map.begin(); itr != action_map.end(); itr++) {
-            if (itr->second[in_ofs + 1] == new_input[1] && itr->second[in_ofs] == new_input[0]) {
-                action_map[itr->first][in_ofs] = input_check[0];
-                action_map[itr->first][in_ofs + 1] = input_check[1];
-                break;
+            if (itr->second[in_ofs + 1] == new_input[ACTION_INPUT] && itr->second[in_ofs] == new_input[ACTION_TYPE]) {
+                if (input_check[ACTION_TYPE] != InputType::JOYAXIS || itr->second[ACTION_AXIS_VALUE] == new_input[REMAP_AXIS_VALUE]) {
+                    action_map[itr->first][ACTION_TYPE + in_ofs] = input_check[0];
+                    action_map[itr->first][ACTION_INPUT + in_ofs] = input_check[1];
+                    if (input_check[ACTION_TYPE] == InputType::JOYAXIS)
+                        action_map[itr->first][ACTION_AXIS_VALUE] = input_check[REMAP_AXIS_VALUE];
+                    break;
+                }
             }
         }
         
         // Setting up the new control
-        action_map[_action][in_ofs] = new_input[0];
-        action_map[_action][in_ofs + 1] = new_input[1];
+        action_map[_action][ACTION_TYPE + in_ofs] = new_input[ACTION_TYPE];
+        action_map[_action][ACTION_INPUT + in_ofs] = new_input[ACTION_INPUT];
+        if (new_input[ACTION_TYPE] == InputType::JOYAXIS)
+            action_map[_action][ACTION_AXIS_VALUE] = new_input[REMAP_AXIS_VALUE];
+        else
+            action_map[_action][ACTION_AXIS_VALUE] = 0;
         
         // Remap Controls
         set_action_map();
         release_all();
-        emit_signal("action_remapped", true);
+        emit_signal("action_remapped", action, true);
         return true;
     }
+
     // We couldn't remap it?
     release_all();
-    emit_signal("action_remapped", false);
+    emit_signal("action_remapped", action, false);
     return false;
 }
 
-void ControlsManager::dict_to_map(int mode, Dictionary new_map) {
+void ControlsManager::dict_to_map(Dictionary new_map) {
     Array keys = new_map.keys(), v;
     for (int i = 0; i < keys.size(); i++) {
         v = new_map[keys[i]];
@@ -315,10 +354,10 @@ void ControlsManager::dict_to_map(int mode, Dictionary new_map) {
     }
 }
 
-Dictionary ControlsManager::map_to_dict(int mode) {
+Dictionary ControlsManager::map_to_dict() {
     Dictionary dict_map = {};
     for (std::unordered_map<std::string, std::vector<int>>::iterator itr = action_map.begin(); itr != action_map.end(); itr++)
-        dict_map[String(itr->first.c_str())] = Array::make(itr->second[0], itr->second[1]);
+        dict_map[String(itr->first.c_str())] = Array::make(itr->second[0], itr->second[1], itr->second[2], itr->second[3]);
     return dict_map;
 }
 
@@ -338,34 +377,7 @@ String ControlsManager::action_to_ui(String action, int mode) {
     if (ui_input[0] == InputType::KEY)
         return OS::get_singleton()->get_keycode_string(Key(ui_input[1]));
 
-    if (ui_input[0] == InputType::MOUSEBUTTON) {
-        switch (ui_input[1]) {
-        case MOUSE_BUTTON_LEFT:
-            return "Mouse Left";
-        case MOUSE_BUTTON_RIGHT:
-            return "Mouse Right";
-        case MOUSE_BUTTON_MIDDLE:
-            return "Mouse Middle";
-        case MOUSE_BUTTON_WHEEL_UP:
-            return "Mouse Wheel Up";
-        case MOUSE_BUTTON_WHEEL_DOWN:
-            return "Mouse Wheel Down";
-        case MOUSE_BUTTON_WHEEL_RIGHT:
-            return "Mouse Wheel Right";
-        case MOUSE_BUTTON_WHEEL_LEFT:
-            return "Mouse Wheel Left";
-        case MOUSE_BUTTON_XBUTTON1:
-            return "Mouse X Button 1";
-        case MOUSE_BUTTON_XBUTTON2:
-            return "Mouse X Button 2";
-        }
-    }
-
-    if (ui_input[0] == InputType::JOYBUTTON)
-        return "";
-
-    if (ui_input[0] == InputType::JOYAXIS)
-        return "";
+    return String::num(ui_input[0]) + ";" + String::num(ui_input[1]);
 }
 
 /*************************************************
@@ -390,6 +402,12 @@ void ControlsManager::update_held_time(float delta) {
 
 float ControlsManager::get_held_time(String action) {
     return held_time[action.utf8().get_data()];
+}
+
+float ControlsManager::axis(String negative_action, String positive_action) {
+    if (lockout > 0.0f)
+        return 0.0f;
+    return INPUT->get_axis(negative_action, positive_action);
 }
 
 void ControlsManager::release_all() {
@@ -441,7 +459,9 @@ void ControlsManager::process(float delta) {
 
     if (input_mode == InputMode::Keyboard)
         set_deferred("mouse_motion", Vector2());
+
     update_held_time(delta);
+
     if (lockout > 0) {
         release_all();
         lockout -= delta;
@@ -475,47 +495,7 @@ void ControlsManager::input(InputEvent* event) {
 
     // Mouselook
     if (event->get_class() == "InputEventMouseMotion" && input_mode == InputMode::Keyboard)
-        mouse_motion = Vector2(event->get("relative")) * mouse_sensitivity;
-    
-    // Gamepad movement
-    else if (event->get_class() == "InputEventJoypadMotion" && input_mode != InputMode::Keyboard) {
-        int axis = event->get("axis");
-        float av = event->get("axis_value");
-        //av = (abs(av) - DEADZONE) / (1.0 - DEADZONE) * Math::sign(av);
-        
-        switch (axis) {
-        // Movement
-        case (JoyAxis::JOY_AXIS_LEFT_X): {
-            if (abs(av) > 0.0f)
-                move_motion.x = av;
-            else
-                move_motion.x = 0.0f;
-            break;
-        }
-        case (JoyAxis::JOY_AXIS_LEFT_Y): {
-            if (abs(av) > 0.0f)
-                move_motion.y = av;
-            else
-                move_motion.y = 0.0f;
-            break;
-        }
-        // Aiming
-        case (JoyAxis::JOY_AXIS_RIGHT_X): {
-            if (abs(av) > 0.0f)
-                mouse_motion.x = av * mouse_sensitivity.x;
-            else
-                mouse_motion.x = 0.0f;
-            break;
-        }
-        case (JoyAxis::JOY_AXIS_RIGHT_Y): {
-            if (abs(av) > 0.0f)
-                mouse_motion.y = av * mouse_sensitivity.y;
-            else
-                mouse_motion.y = 0.0f;
-            break;
-        }
-        }
-    }
+        mouse_motion = Vector2(event->get("relative")) * 0.1f * mouse_sensitivity;
     
     // Input states
     for (int i = 0; i < action_list.size(); i++) {

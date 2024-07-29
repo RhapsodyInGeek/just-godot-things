@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://dmmnqnundewsi"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_vr34g"]
+[ext_resource type="Script" path="res://entities/props/prop_multi_mesh.gd" id="2_no2cd"]
+
+[resource]
+script = ExtResource("1_vr34g")
+script_class = ExtResource("2_no2cd")
+apply_rotation_on_map_build = true
+classname = "prop_multi_mesh"
+description = "Multi mesh prop that generates mesh instances across surface target geometry. Surface targets can be picked by either proximity or matching the target property with an entity's globalname property."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"amount": 128,
+"base_scale": 1.0,
+"mesh_res_path": "",
+"random_rotation": 0.0,
+"random_scale": 0.0,
+"random_tilt": 0.0,
+"target": "",
+"target_mesh": ""
+}
+class_property_descriptions = {
+"amount": "Number of mesh instances to generate.",
+"base_scale": "Base scale factor for mesh instances.",
+"mesh_res_path": "Resource filepath of a mesh to instance across the target geometry. Overridden by target_mesh, if target_mesh is valid.",
+"random_rotation": "Range of rotation for mesh instances on the Y axis.",
+"random_scale": "Scale factor offset range for mesh instances.",
+"random_tilt": "Range of tilt for mesh instances on the X and Z axes.",
+"target": "Globalname of the target geometry object to place the multi mesh instances across.",
+"target_mesh": "Globalname of the geometry to copy across target. This can be used to instance brush entities. This overrides mesh_res_path, if target_mesh is valid."
+}
+meta_properties = {
+"color": Color(0.8, 0, 0.8, 1),
+"size": AABB(-16, -16, -16, 16, 16, 16)
+}
+node_class = "MultiMeshInstance3D"
+name_property = ""

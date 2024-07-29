@@ -1,4 +1,4 @@
-#include "SpriteText.h"
+#include "sprite_text.h"
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
