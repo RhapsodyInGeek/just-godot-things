@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://bkcb80nihb3ta"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_056wq"]
+
+[resource]
+script = ExtResource("1_056wq")
+classname = "Worldspawn_Glow"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"glow_blend_mode": {
+"additive": 0,
+"mix": 4,
+"replace": 3,
+"screen": 1,
+"softlight": 2
+},
+"glow_bloom": 0.0,
+"glow_enabled": false,
+"glow_hdr_luminance_cap": 12.0,
+"glow_hdr_scale": 2.0,
+"glow_hdr_threshold": 1.0,
+"glow_intensity": 0.8,
+"glow_level_1": 0.0,
+"glow_level_2": 0.0,
+"glow_level_3": 1.0,
+"glow_level_4": 0.0,
+"glow_level_5": 1.0,
+"glow_level_6": 0.0,
+"glow_level_7": 0.0,
+"glow_map_image_path": "",
+"glow_map_strength": 0.8,
+"glow_normalized": false,
+"glow_strength": 1.0
+}
+class_property_descriptions = {
+"glow_blend_mode": ["", 2]
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

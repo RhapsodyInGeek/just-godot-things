@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://b3h3ebmyf1tgi"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_vjd74"]
+
+[resource]
+script = ExtResource("1_vjd74")
+classname = "Worldspawn_Sky"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"sky_fov": 0.0,
+"sky_material": "",
+"sky_process_mode": {
+"automatic": 0,
+"incremental": 2,
+"quality": 1,
+"realtime": 3
+},
+"sky_radiance_size": {
+"1024": 5,
+"128": 2,
+"2048": 6,
+"256": 3,
+"32": 0,
+"512": 4,
+"64": 1
+},
+"sky_rotation": Vector3(0, 0, 0)
+}
+class_property_descriptions = {
+"sky_process_mode": ["", 0],
+"sky_radiance_size": ["", 3]
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

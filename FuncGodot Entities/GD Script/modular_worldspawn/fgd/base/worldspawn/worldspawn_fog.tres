@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://cg8y28cc5be80"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_dlwy0"]
+
+[resource]
+script = ExtResource("1_dlwy0")
+classname = "Worldspawn_Fog"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"fog_density": 0.01,
+"fog_depth_begin": 10.0,
+"fog_depth_curve": 1.0,
+"fog_depth_end": 100.0,
+"fog_enabled": false,
+"fog_height": 0.0,
+"fog_height_density": 0.0,
+"fog_light_color": Color(0.517647, 0.552941, 0.607843, 1),
+"fog_light_energy": 1.0,
+"fog_mode": {
+"depth": 1,
+"exponential": 0
+},
+"fog_sky_affect": 1.0,
+"fog_sun_scatter": 0.0
+}
+class_property_descriptions = {
+"fog_mode": ["", 0]
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

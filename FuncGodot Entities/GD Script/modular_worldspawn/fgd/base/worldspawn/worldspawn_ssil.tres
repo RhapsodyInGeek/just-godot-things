@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://u5owgegpulg4"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_y8spm"]
+
+[resource]
+script = ExtResource("1_y8spm")
+classname = "Worldspawn_SSIL"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"ssil_enabled": false,
+"ssil_intensity": 1.0,
+"ssil_normal_rejection": 1.0,
+"ssil_radius": 5.0,
+"ssil_sharpness": 0.98
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

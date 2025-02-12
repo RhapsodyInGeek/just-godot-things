@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://dxo6wswuhjbgp"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_srmf6"]
+
+[resource]
+script = ExtResource("1_srmf6")
+classname = "Worldspawn_SDFGI"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"sdfgi_bounce_feedback": 0.5,
+"sdfgi_cascade0_distance": 12.8,
+"sdfgi_cascades": 4,
+"sdfgi_enabled": false,
+"sdfgi_energy": 1.0,
+"sdfgi_max_distance": 204.8,
+"sdfgi_min_cell_size": 0.2,
+"sdfgi_normal_bias": 1.1,
+"sdfgi_probe_bias": 1.1,
+"sdfgi_read_sky_light": true,
+"sdfgi_use_occlusion": false,
+"sdfgi_y_scale": {
+"100 Percent": 2,
+"50 Percent": 0,
+"75 Percent": 1
+}
+}
+class_property_descriptions = {
+"sdfgi_y_scale": ["", 1]
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

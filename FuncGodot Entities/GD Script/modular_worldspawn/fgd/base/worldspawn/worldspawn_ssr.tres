@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://d2bk0vf1dxvdw"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_7yrc3"]
+
+[resource]
+script = ExtResource("1_7yrc3")
+classname = "Worldspawn_SSR"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"ssr_depth_tolerance": 0.2,
+"ssr_enabled": false,
+"ssr_fade_in": 0.15,
+"ssr_fade_out": 2.0,
+"ssr_max_steps": 64
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

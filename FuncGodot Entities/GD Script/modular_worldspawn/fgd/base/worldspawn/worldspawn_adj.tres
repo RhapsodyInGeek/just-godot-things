@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://x7t67m1uo617"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_a4lu3"]
+
+[resource]
+script = ExtResource("1_a4lu3")
+classname = "Worldspawn_Adjustments"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"adjustment_brightness": 1.0,
+"adjustment_color_correction_path": "",
+"adjustment_contrast": 1.0,
+"adjustment_enabled": false,
+"adjustment_saturation": 1.0
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://c53s30pt2h3rj"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_u5atl"]
+
+[resource]
+script = ExtResource("1_u5atl")
+classname = "Worldspawn_BG"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"bg_camera_feed_id": 1,
+"bg_canvas_max_layer": 0,
+"bg_color": Color(0, 0, 0, 1),
+"bg_energy_multiplier": 1.0,
+"bg_mode": {
+"camera_feed": 5,
+"canvas": 3,
+"clear_color": 0,
+"color": 1,
+"keep": 4,
+"sky": 2
+}
+}
+class_property_descriptions = {
+"bg_mode": ["", 1]
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://b7sirueasntcp"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_rpuly"]
+
+[resource]
+script = ExtResource("1_rpuly")
+classname = "Worldspawn_VolumetricFog"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"volumetric_fog_albedo": Color(1, 1, 1, 1),
+"volumetric_fog_ambient_inject": 0.0,
+"volumetric_fog_anisotropy": 0.2,
+"volumetric_fog_density": 0.05,
+"volumetric_fog_detail_spread": 2.0,
+"volumetric_fog_emission": Color(0, 0, 0, 1),
+"volumetric_fog_emission_energy": 1.0,
+"volumetric_fog_enabled": false,
+"volumetric_fog_gi_inject": 1.0,
+"volumetric_fog_length": 64.0,
+"volumetric_fog_sky_affect": 1.0,
+"volumetric_fog_temporal_reprojection_amount": 0.9,
+"volumetric_fog_temporal_reprojection_enabled": true
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

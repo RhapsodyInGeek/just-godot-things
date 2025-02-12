@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=6 format=3 uid="uid://da7k67tthqksi"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_85jhq"]
+[ext_resource type="Resource" uid="uid://c53s30pt2h3rj" path="res://fgd/base/worldspawn/worldspawn_bg.tres" id="1_xy3m2"]
+[ext_resource type="Resource" uid="uid://cxckph0lt4js5" path="res://fgd/base/worldspawn/worldspawn_amb.tres" id="2_jw8k1"]
+[ext_resource type="Script" path="res://entities/worldspawn.gd" id="2_lyihe"]
+[ext_resource type="Resource" uid="uid://cg8y28cc5be80" path="res://fgd/base/worldspawn/worldspawn_fog.tres" id="3_jttic"]
+
+[resource]
+script = ExtResource("1_85jhq")
+spawn_type = 0
+origin_type = 4
+build_visuals = false
+use_in_baked_light = false
+shadow_casting_setting = 0
+build_occlusion = false
+render_layers = 1
+collision_shape_type = 0
+collision_layer = 0
+collision_mask = 0
+collision_priority = 1.0
+collision_shape_margin = 0.04
+add_textures_metadata = false
+add_vertex_metadata = false
+add_face_position_metadata = false
+add_face_normal_metadata = false
+add_collision_shape_face_range_metadata = false
+script_class = ExtResource("2_lyihe")
+classname = "worldspawn"
+description = "Map settings node. Generates a WorldEnvironment. Properties can be extended through the use of different worldspawn base classes."
+func_godot_internal = false
+base_classes = Array[Resource]([ExtResource("1_xy3m2"), ExtResource("2_jw8k1"), ExtResource("3_jttic")])
+class_properties = {
+"mapname": "",
+"music": ""
+}
+class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1)
+}
+node_class = "WorldEnvironment"
+name_property = ""
